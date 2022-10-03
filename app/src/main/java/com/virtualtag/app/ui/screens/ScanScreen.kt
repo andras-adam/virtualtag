@@ -1,6 +1,8 @@
 package com.virtualtag.app.ui.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,7 +24,9 @@ fun ScanScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, goBack: () -> 
     Surface(modifier = Modifier
       .padding(it)
       .fillMaxSize()) {
-      Text("Scan new cards here")
+      Column(modifier = Modifier.fillMaxWidth()) {
+        Text("Scan new cards here")
+      }
     }
   }
 }

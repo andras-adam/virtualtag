@@ -21,20 +21,22 @@ class MainActivity : ComponentActivity() {
       // Navigation controller and functions
       val navController = rememberNavController()
       val goBack: () -> Unit = { navController.navigateUp() }
+      val scanCard: () -> Unit = { navController.navigate("scan") }
       val viewCard: (id: Int) -> Unit = { navController.navigate("card/$it") }
+      val editCard: (id: Int) -> Unit = { navController.navigate("edit/$it") }
       // View models
       val model: CardViewModel by viewModels()
       // Render content
       VirtualTagTheme {
         NavHost(navController = navController, startDestination = "home") {
           composable("home") {
-            HomeScreen(model = model, viewCard = viewCard)
+            HomeScreen(model = model, viewCard = viewCard, scanCard = scanCard)
           }
           composable("scan") {
             ScanScreen(model = model, viewCard = viewCard, goBack = goBack)
           }
           composable("card/{id}") {
-            CardScreen(model = model, id = it.arguments?.getInt("id") ?: 0, goBack = goBack)
+            CardScreen(model = model, id = it.arguments?.getInt("id") ?: 0, editCard = editCard, goBack = goBack)
           }
           composable("edit/{id}") {
             EditScreen(model = model, id = it.arguments?.getInt("id") ?: 0, goBack = goBack)
