@@ -1,5 +1,6 @@
 package com.virtualtag.app
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.virtualtag.app.data.ScanningViewModel
 import com.virtualtag.app.ui.screens.CardScreen
 import com.virtualtag.app.ui.screens.EditScreen
 import com.virtualtag.app.ui.screens.HomeScreen
@@ -15,6 +17,9 @@ import com.virtualtag.app.ui.theme.VirtualTagTheme
 import com.virtualtag.app.viewmodels.CardViewModel
 
 class MainActivity : ComponentActivity() {
+  private val scanningViewModel: ScanningViewModel by viewModels()
+  private val cardViewModel: CardViewModel by viewModels()
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
@@ -24,25 +29,28 @@ class MainActivity : ComponentActivity() {
       val scanCard: () -> Unit = { navController.navigate("scan") }
       val viewCard: (id: Int) -> Unit = { navController.navigate("card/$it") }
       val editCard: (id: Int) -> Unit = { navController.navigate("edit/$it") }
-      // View models
-      val model: CardViewModel by viewModels()
       // Render content
       VirtualTagTheme {
         NavHost(navController = navController, startDestination = "home") {
           composable("home") {
-            HomeScreen(model = model, viewCard = viewCard, scanCard = scanCard)
+            HomeScreen(model = cardViewModel, viewCard = viewCard, scanCard = scanCard)
           }
           composable("scan") {
-            ScanScreen(model = model, viewCard = viewCard, goBack = goBack)
+            ScanScreen(scanningViewModel = scanningViewModel, viewCard = viewCard, goBack = goBack)
           }
           composable("card/{id}") {
-            CardScreen(model = model, id = it.arguments?.getInt("id") ?: 0, editCard = editCard, goBack = goBack)
+            CardScreen(model = cardViewModel, id = it.arguments?.getInt("id") ?: 0, editCard = editCard, goBack = goBack)
           }
           composable("edit/{id}") {
-            EditScreen(model = model, id = it.arguments?.getInt("id") ?: 0, goBack = goBack)
+            EditScreen(model = cardViewModel, id = it.arguments?.getInt("id") ?: 0, goBack = goBack)
           }
         }
       }
     }
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    scanningViewModel.onActivityNewIntent(intent)
   }
 }
