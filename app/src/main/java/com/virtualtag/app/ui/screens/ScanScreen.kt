@@ -7,9 +7,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable
-fun ScanScreen(viewCard: (id: Int) -> Unit, goBack: () -> Unit) {
+fun ScanScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, goBack: () -> Unit) {
   Scaffold(
     topBar = {
       TopAppBar(

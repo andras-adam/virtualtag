@@ -8,9 +8,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable
-fun HomeScreen(viewCard: (id: Int) -> Unit) {
+fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit) {
   Scaffold(
     topBar = { TopAppBar(title = { Text("Home") }) }
   ) {
