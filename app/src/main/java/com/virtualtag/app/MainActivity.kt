@@ -3,37 +3,38 @@ package com.virtualtag.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.virtualtag.app.ui.screens.CardScreen
+import com.virtualtag.app.ui.screens.EditScreen
+import com.virtualtag.app.ui.screens.HomeScreen
+import com.virtualtag.app.ui.screens.ScanScreen
 import com.virtualtag.app.ui.theme.VirtualTagTheme
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
+      val navController = rememberNavController()
+      val goBack: () -> Unit = { navController.navigateUp() }
+      val viewCard: (id: Int) -> Unit = { navController.navigate("card/$it") }
       VirtualTagTheme {
-        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-          Greeting("Android")
+        NavHost(navController = navController, startDestination = "home") {
+          composable("home") {
+            HomeScreen(viewCard = viewCard)
+          }
+          composable("scan") {
+            ScanScreen(viewCard = viewCard, goBack = goBack)
+          }
+          composable("card/{id}") {
+            CardScreen(id = it.arguments?.getInt("id") ?: 0, goBack = goBack)
+          }
+          composable("edit/{id}") {
+            EditScreen(id = it.arguments?.getInt("id") ?: 0, goBack = goBack)
+          }
         }
       }
     }
-  }
-}
-
-@Composable
-fun Greeting(name: String) {
-  Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-  VirtualTagTheme {
-    Greeting("Android")
   }
 }
