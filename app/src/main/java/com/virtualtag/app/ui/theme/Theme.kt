@@ -5,26 +5,22 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
-  primary = Purple200,
-  primaryVariant = Purple700,
-  secondary = Teal200
+  primary = Blue700,
+  primaryVariant = Blue500,
+  secondary = Blue700,
+  background = BlackBG,
+  onBackground = Gray700,
 )
 
 private val LightColorPalette = lightColors(
-  primary = Purple500,
-  primaryVariant = Purple700,
-  secondary = Teal200
-
-  /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+  primary = Blue700,
+  primaryVariant = Blue500,
+  secondary = Blue700,
+  background = Gray200,
+  onBackground = WhiteBG,
 )
 
 @Composable
@@ -33,6 +29,18 @@ fun VirtualTagTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
     DarkColorPalette
   } else {
     LightColorPalette
+  }
+
+  // Set status bar color
+  val systemUIController = rememberSystemUiController()
+  if(darkTheme){
+    systemUIController.setStatusBarColor(
+      color = Gray700
+    )
+  } else {
+    systemUIController.setStatusBarColor(
+      color = Blue700
+    )
   }
 
   MaterialTheme(
