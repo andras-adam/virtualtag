@@ -17,40 +17,53 @@ import com.virtualtag.app.ui.theme.VirtualTagTheme
 import com.virtualtag.app.viewmodels.CardViewModel
 
 class MainActivity : ComponentActivity() {
-  private val scanningViewModel: ScanningViewModel by viewModels()
-  private val cardViewModel: CardViewModel by viewModels()
+    private val scanningViewModel: ScanningViewModel by viewModels()
+    private val cardViewModel: CardViewModel by viewModels()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContent {
-      // Navigation controller and functions
-      val navController = rememberNavController()
-      val goBack: () -> Unit = { navController.navigateUp() }
-      val scanCard: () -> Unit = { navController.navigate("scan") }
-      val viewCard: (id: Int) -> Unit = { navController.navigate("card/$it") }
-      val editCard: (id: Int) -> Unit = { navController.navigate("edit/$it") }
-      // Render content
-      VirtualTagTheme {
-        NavHost(navController = navController, startDestination = "home") {
-          composable("home") {
-            HomeScreen(model = cardViewModel, viewCard = viewCard, scanCard = scanCard)
-          }
-          composable("scan") {
-            ScanScreen(scanningViewModel = scanningViewModel, viewCard = viewCard, goBack = goBack)
-          }
-          composable("card/{id}") {
-            CardScreen(model = cardViewModel, id = it.arguments?.getInt("id") ?: 0, editCard = editCard, goBack = goBack)
-          }
-          composable("edit/{id}") {
-            EditScreen(model = cardViewModel, id = it.arguments?.getInt("id") ?: 0, goBack = goBack)
-          }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            // Navigation controller and functions
+            val navController = rememberNavController()
+            val goBack: () -> Unit = { navController.navigateUp() }
+            val scanCard: () -> Unit = { navController.navigate("scan") }
+            val viewCard: (id: Int) -> Unit = { navController.navigate("card/$it") }
+            val editCard: (id: Int) -> Unit = { navController.navigate("edit/$it") }
+            // Render content
+            VirtualTagTheme {
+                NavHost(navController = navController, startDestination = "home") {
+                    composable("home") {
+                        HomeScreen(model = cardViewModel, viewCard = viewCard, scanCard = scanCard)
+                    }
+                    composable("scan") {
+                        ScanScreen(
+                            scanningViewModel = scanningViewModel,
+                            viewCard = viewCard,
+                            goBack = goBack
+                        )
+                    }
+                    composable("card/{id}") {
+                        CardScreen(
+                            model = cardViewModel,
+                            id = it.arguments?.getInt("id") ?: 0,
+                            editCard = editCard,
+                            goBack = goBack
+                        )
+                    }
+                    composable("edit/{id}") {
+                        EditScreen(
+                            model = cardViewModel,
+                            id = it.arguments?.getInt("id") ?: 0,
+                            goBack = goBack
+                        )
+                    }
+                }
+            }
         }
-      }
     }
-  }
 
-  override fun onNewIntent(intent: Intent?) {
-    super.onNewIntent(intent)
-    scanningViewModel.onActivityNewIntent(intent)
-  }
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        scanningViewModel.onActivityNewIntent(intent)
+    }
 }
