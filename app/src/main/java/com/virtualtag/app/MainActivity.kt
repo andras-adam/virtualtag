@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,11 +16,16 @@ import com.virtualtag.app.ui.theme.VirtualTagTheme
 import com.virtualtag.app.viewmodels.CardViewModel
 
 class MainActivity : ComponentActivity() {
-    private val scanningViewModel: ScanningViewModel by viewModels()
-    private val cardViewModel: CardViewModel by viewModels()
+    companion object {
+        private lateinit var scanningViewModel: ScanningViewModel
+        private lateinit var cardViewModel: CardViewModel
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Initialize ViewModels
+        scanningViewModel = ScanningViewModel()
+        cardViewModel = CardViewModel(application = application)
         setContent {
             // Navigation controller and functions
             val navController = rememberNavController()
