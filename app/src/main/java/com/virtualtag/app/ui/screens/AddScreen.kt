@@ -1,19 +1,30 @@
 package com.virtualtag.app.ui.screens
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.data.ScanningViewModel
+import com.virtualtag.app.data.toHex
+import com.virtualtag.app.db.Card
 import com.virtualtag.app.ui.components.CardContainer
+import com.virtualtag.app.ui.components.ColorButton
 import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.components.SecondaryButton
+import com.virtualtag.app.ui.theme.WhiteBG
+import com.virtualtag.app.ui.theme.cardBackGroundColors
+import com.virtualtag.app.utils.colorToString
 import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable
@@ -23,7 +34,24 @@ fun AddScreen(
     goHome: () -> Unit,
     goBack: () -> Unit
 ) {
-    val scannedTag = scanningViewModel.scannedTag.observeAsState(null)
+    val context = LocalContext.current
+    val scannedTag = scanningViewModel.scannedTag.observeAsState()
+    val tagId = scannedTag.value?.id?.toHex() ?: "0"
+
+    var name by remember { mutableStateOf(TextFieldValue("")) }
+    var color by remember { mutableStateOf("#fff8f8f8") }
+
+    fun addCardToDb() {
+        model.addCard(
+            Card(
+                id = tagId,
+                name = name.text,
+                color = color
+            )
+        )
+        Toast.makeText(context, "Card added successfully!", Toast.LENGTH_SHORT).show()
+        goHome()
+    }
 
     Scaffold(
         topBar = {
@@ -51,7 +79,7 @@ fun AddScreen(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    CardContainer(onClick = { }, enabled = false) {
+                    CardContainer(onClick = { }, enabled = false, color = WhiteBG) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -73,7 +101,23 @@ fun AddScreen(
                             Text("NFC tag scanned successfully", modifier = Modifier)
                         }
                     }
-                    // TODO - add name and color selection
+
+                    TextField(
+                        value = name,
+                        onValueChange = { newName ->
+                            name = newName
+                        },
+                        label = { Text(text = "Name") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = Color.White
+                        )
+                    )
+                    ColorButton(colors = cardBackGroundColors, onColorSelected = {value ->
+                        color = colorToString(value)
+                    })
                 }
                 Row {
                     Column(
@@ -88,7 +132,16 @@ fun AddScreen(
                             .weight(1f)
                             .padding(start = 4.dp)
                     ) {
-                        PrimaryButton(text = "Ok", onClick = {/* TODO - submit to ViewModel */ })
+                        PrimaryButton(text = "Ok", onClick = {
+                            if (name.text == "") {
+                                return@PrimaryButton Toast.makeText(
+                                    context,
+                                    "Please set a name for your card",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            addCardToDb()
+                        })
                     }
                 }
             }

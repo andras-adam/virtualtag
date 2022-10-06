@@ -1,13 +1,19 @@
 package com.virtualtag.app.ui.components
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.virtualtag.app.ui.screens.ColorPickerDialog
 
 @Composable
 fun PrimaryButton(text: String, onClick: () -> Unit) {
@@ -32,10 +38,61 @@ fun SecondaryButton(text: String, onClick: () -> Unit) {
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp),
         contentPadding = PaddingValues(all = 16.dp),
-        elevation = ButtonDefaults.elevation(defaultElevation = 2.dp),
     ) {
         Spacer(modifier = Modifier.weight(1.0f))
         Text(text, color = MaterialTheme.colors.primary)
         Spacer(modifier = Modifier.weight(1.0f))
+    }
+}
+
+@Composable
+fun ColorButton(colors: List<Color>, onColorSelected: (Color) -> Unit) {
+    var colorPickerOpen by remember { mutableStateOf(false) }
+    var currentlySelected by remember { mutableStateOf(colors[0]) }
+
+    Box(
+        modifier = Modifier
+            .padding(top = 12.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10))
+            .clickable {
+                colorPickerOpen = true
+            },
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Change card background color",
+            )
+
+            Canvas(
+                modifier = Modifier
+                    .size(32.dp)
+                    .clip(RoundedCornerShape(10))
+                    .background(currentlySelected)
+                    .border(width = 1.dp, color = Color.Gray)
+                    .clickable {
+                        colorPickerOpen = true
+                    }
+            ) {}
+        }
+    }
+
+    if (colorPickerOpen) {
+        ColorPickerDialog(
+            colorList = colors,
+            onDismiss = { colorPickerOpen = false },
+            currentlySelected = currentlySelected,
+            onColorSelected = {
+                currentlySelected = it
+                onColorSelected(it)
+            }
+        )
     }
 }
