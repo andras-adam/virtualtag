@@ -8,25 +8,45 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.virtualtag.app.db.Card
 import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable
-fun CardScreen(model: CardViewModel, id: Int, editCard: (id: Int) -> Unit, goBack: () -> Unit) {
-  Scaffold(
-    topBar = {
-      TopAppBar(
-        title = { Text("Card $id") },
-        navigationIcon = { IconButton(onClick = goBack) { Icon(Icons.Filled.ArrowBack, null) } }
-      )
+fun CardScreen(
+    model: CardViewModel,
+    id: String,
+    editCard: (id: String) -> Unit,
+    goBack: () -> Unit
+) {
+    val card =
+        model.getCardById(id).observeAsState(Card(id = "0", name = "Unknown card", color = "red"))
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(card.value.name) },
+                navigationIcon = {
+                    IconButton(onClick = goBack) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            null
+                        )
+                    }
+                }
+            )
+        }
+    ) {
+        Surface(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize()
+                .padding(8.dp), color = MaterialTheme.colors.background
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text("View card details here")
+            }
+        }
     }
-  ) {
-    Surface(modifier = Modifier
-      .padding(it)
-      .fillMaxSize()) {
-      Column(modifier = Modifier.fillMaxWidth()) {
-        Text("View card details here")
-      }
-    }
-  }
 }
