@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.virtualtag.app.data.ScanningViewModel
 import com.virtualtag.app.ui.screens.*
 import com.virtualtag.app.ui.theme.VirtualTagTheme
@@ -28,14 +30,14 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val goBack: () -> Unit = { navController.navigateUp() }
             val goHome: () -> Unit = {
-                navController.navigate("home"){
+                navController.navigate("home") {
                     popUpTo(0)
                 }
             }
             val scanCard: () -> Unit = { navController.navigate("scan") }
             val addCard: () -> Unit = { navController.navigate("add") }
-            val viewCard: (id: Int) -> Unit = { navController.navigate("card/$it") }
-            val editCard: (id: Int) -> Unit = { navController.navigate("edit/$it") }
+            val viewCard: (id: String) -> Unit = { id -> navController.navigate("card/$id") }
+            val editCard: (id: String) -> Unit = { id -> navController.navigate("edit/$id") }
             // Render content
             VirtualTagTheme {
                 NavHost(navController = navController, startDestination = "home") {
@@ -51,16 +53,21 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("add") {
                         AddScreen(
-                            model =  cardViewModel,
+                            model = cardViewModel,
                             scanningViewModel = scanningViewModel,
                             goHome = goHome,
                             goBack = goBack
                         )
                     }
-                    composable("card/{id}") {
+                    composable(
+                        "card/{id}",
+                        arguments = listOf(navArgument("id") {
+                            type = NavType.StringType
+                        }),
+                    ) {
                         CardScreen(
                             model = cardViewModel,
-                            id = it.arguments?.getInt("id") ?: 0,
+                            id = it.arguments?.getString("id") ?: "0",
                             editCard = editCard,
                             goBack = goBack
                         )
@@ -68,7 +75,7 @@ class MainActivity : ComponentActivity() {
                     composable("edit/{id}") {
                         EditScreen(
                             model = cardViewModel,
-                            id = it.arguments?.getInt("id") ?: 0,
+                            id = it.arguments?.getString("id") ?: "0",
                             goBack = goBack
                         )
                     }

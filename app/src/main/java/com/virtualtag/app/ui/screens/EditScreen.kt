@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable
-fun EditScreen(model: CardViewModel, id: Int, goBack: () -> Unit) {
+fun EditScreen(model: CardViewModel, id: String, goBack: () -> Unit) {
   Scaffold(
     topBar = {
       TopAppBar(

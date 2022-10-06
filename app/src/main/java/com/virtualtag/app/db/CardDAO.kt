@@ -9,7 +9,7 @@ interface CardDao {
     fun getAllCards(): LiveData<List<Card>>
 
     @Query("SELECT * FROM card WHERE card.id = :id")
-    fun getCardById(id: Int): LiveData<Card>
+    fun getCardById(id: String): LiveData<Card>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCard(card: Card)

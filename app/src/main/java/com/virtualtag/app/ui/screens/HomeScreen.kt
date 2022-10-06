@@ -15,10 +15,11 @@ import androidx.compose.ui.unit.dp
 import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.Logo
 import com.virtualtag.app.ui.components.PrimaryButton
+import com.virtualtag.app.utils.stringToColor
 import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable
-fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -> Unit) {
+fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: () -> Unit) {
     val cardList = model.getAllCards().observeAsState(listOf())
     Scaffold {
         Surface(
@@ -34,9 +35,16 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -
                 Logo(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
                 // List of all cards in the database
                 LazyColumn {
-                    items(cardList.value) {
-                        CardContainer(onClick = { viewCard(it.id) }, enabled = true) {
-                            Text(it.name, modifier = Modifier.padding(top = 48.dp, bottom = 48.dp))
+                    items(cardList.value) { card ->
+                        CardContainer(
+                            onClick = { viewCard(card.id) },
+                            enabled = true,
+                            color = stringToColor(card.color)
+                        ) {
+                            Text(
+                                card.name,
+                                modifier = Modifier.padding(top = 48.dp, bottom = 48.dp)
+                            )
                         }
                     }
                 }

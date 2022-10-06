@@ -28,6 +28,7 @@ class ScanningViewModel : ViewModel() {
 
     // Allow scanning of NFC tags
     fun enableScanning(activity: Activity) {
+        _scannedTag.value = null
         if (isScanning) return
         // Get NFC adapter
         val adapter = NfcAdapter.getDefaultAdapter(activity)
@@ -65,7 +66,6 @@ class ScanningViewModel : ViewModel() {
         // Disable foreground dispatch
         adapter.disableForegroundDispatch(activity)
         Log.i("NFC", "scanning disabled")
-        _scannedTag.value = null
         isScanning = false
     }
 

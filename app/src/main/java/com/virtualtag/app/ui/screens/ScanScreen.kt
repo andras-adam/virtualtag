@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.virtualtag.app.data.ScanningViewModel
 import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.PrimaryButton
+import com.virtualtag.app.ui.theme.WhiteBG
 
 @Composable
 fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard: () -> Unit) {
@@ -66,7 +67,7 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(Modifier.weight(1F)) {
-                    CardContainer(onClick = { }, enabled = false) {
+                    CardContainer(onClick = { }, enabled = false, color = WhiteBG) {
                         Spacer(Modifier.weight(1f))
                         Text(
                             "Ready to scan",
