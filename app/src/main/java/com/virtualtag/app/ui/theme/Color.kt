@@ -6,9 +6,8 @@ import androidx.compose.ui.graphics.Color
 val Blue500 = Color(0xFF2196F3)
 val Blue700 = Color(0xFF0B5086)
 
-// Light mode background colors
+// Light mode background color
 val Gray200 = Color(0xFFF0F0F0)
-val WhiteBG = Color(0xFFF8F8F8)
 
 // Dark mode background colors
 val BlackBG = Color(0xFF020202)

@@ -10,7 +10,7 @@ data class Card(
     * twice, then OnConflictStrategy can easily handle the duplicates within the DAO
     */
     @PrimaryKey
-    val id: String,
+    val id: Int,
     // TODO - figure out what kind of card data to save (Tag cannot be saved in Room)
     // val data: Tag,
     val name: String,

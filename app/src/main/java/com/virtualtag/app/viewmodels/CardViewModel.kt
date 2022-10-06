@@ -13,7 +13,7 @@ class CardViewModel(application: Application) : ViewModel() {
 
     fun getAllCards(): LiveData<List<Card>> = cardDB.cardDao().getAllCards()
 
-    fun getCardById(id: String): LiveData<Card> = cardDB.cardDao().getCardById(id)
+    fun getCardById(id: Int): LiveData<Card> = cardDB.cardDao().getCardById(id)
 
     fun addCard(card: Card) {
         viewModelScope.launch {

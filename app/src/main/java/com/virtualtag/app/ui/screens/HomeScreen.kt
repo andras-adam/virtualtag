@@ -1,9 +1,6 @@
 package com.virtualtag.app.ui.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -23,8 +20,7 @@ import com.virtualtag.app.viewmodels.CardViewModel
 @Composable
 fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -> Unit) {
     val cardList = model.getAllCards().observeAsState(listOf())
-    Scaffold(
-    ) {
+    Scaffold {
         Surface(
             modifier = Modifier
                 .padding(it)
@@ -39,7 +35,7 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -
                 // List of all cards in the database
                 LazyColumn {
                     items(cardList.value) {
-                        CardContainer(onClick = { viewCard(3) }) {
+                        CardContainer(onClick = { viewCard(it.id) }, enabled = true) {
                             Text(it.name, modifier = Modifier.padding(top = 48.dp, bottom = 48.dp))
                         }
                     }
