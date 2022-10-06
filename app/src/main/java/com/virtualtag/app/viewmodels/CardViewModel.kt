@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.virtualtag.app.db.Card
 import com.virtualtag.app.db.CardDB
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CardViewModel(application: Application) : ViewModel() {
@@ -13,22 +15,22 @@ class CardViewModel(application: Application) : ViewModel() {
 
     fun getAllCards(): LiveData<List<Card>> = cardDB.cardDao().getAllCards()
 
-    fun getCardById(id: Int): LiveData<Card> = cardDB.cardDao().getCardById(id)
+    fun getCardById(id: String): LiveData<Card> = cardDB.cardDao().getCardById(id)
 
     fun addCard(card: Card) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             cardDB.cardDao().addCard(card)
         }
     }
 
     fun updateCard(card: Card) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             cardDB.cardDao().updateCard(card)
         }
     }
 
     fun deleteCard(card: Card) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             cardDB.cardDao().deleteCard(card)
         }
     }
