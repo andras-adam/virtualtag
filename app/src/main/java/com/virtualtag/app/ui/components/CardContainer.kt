@@ -12,13 +12,14 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CardContainer(onClick: () -> Unit, children: @Composable () -> Unit) {
+fun CardContainer(onClick: () -> Unit, enabled: Boolean, children: @Composable () -> Unit) {
     Card(
         elevation = 2.dp,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp, bottom = 4.dp),
         onClick = onClick,
+        enabled = enabled
     ) {
         Column(
             modifier = Modifier
