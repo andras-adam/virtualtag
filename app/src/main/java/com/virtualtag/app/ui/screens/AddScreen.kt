@@ -79,7 +79,11 @@ fun AddScreen(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    CardContainer(onClick = { }, enabled = false, color = WhiteBG) {
+                    CardContainer(
+                        onClick = { },
+                        enabled = false,
+                        color = MaterialTheme.colors.secondaryVariant
+                    ) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -96,9 +100,14 @@ fun AddScreen(
                                 Icons.Outlined.CheckCircle,
                                 null, modifier = Modifier
                                     .size(48.dp)
-                                    .padding(end = 16.dp)
+                                    .padding(end = 16.dp),
+                                tint = MaterialTheme.colors.secondary
                             )
-                            Text("NFC tag scanned successfully", modifier = Modifier)
+                            Text(
+                                "NFC tag scanned successfully",
+                                modifier = Modifier,
+                                color = MaterialTheme.colors.secondary
+                            )
                         }
                     }
 
@@ -112,10 +121,10 @@ fun AddScreen(
                             .fillMaxWidth()
                             .padding(top = 8.dp),
                         colors = TextFieldDefaults.textFieldColors(
-                            backgroundColor = Color.White
+                            backgroundColor = MaterialTheme.colors.secondaryVariant
                         )
                     )
-                    ColorButton(colors = cardBackGroundColors, onColorSelected = {value ->
+                    ColorButton(colors = cardBackGroundColors, onColorSelected = { value ->
                         color = colorToString(value)
                     })
                 }

@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.virtualtag.app.ui.screens.ColorPickerDialog
 
 @Composable
 fun PrimaryButton(text: String, onClick: () -> Unit) {
@@ -38,9 +37,10 @@ fun SecondaryButton(text: String, onClick: () -> Unit) {
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp),
         contentPadding = PaddingValues(all = 16.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondaryVariant)
     ) {
         Spacer(modifier = Modifier.weight(1.0f))
-        Text(text, color = MaterialTheme.colors.primary)
+        Text(text, color = MaterialTheme.colors.secondary)
         Spacer(modifier = Modifier.weight(1.0f))
     }
 }
@@ -50,7 +50,7 @@ fun ColorButton(colors: List<Color>, onColorSelected: (Color) -> Unit) {
     var colorPickerOpen by remember { mutableStateOf(false) }
     var currentlySelected by remember { mutableStateOf(colors[0]) }
 
-    Box(
+    Card(
         modifier = Modifier
             .padding(top = 12.dp)
             .fillMaxWidth()
@@ -58,19 +58,19 @@ fun ColorButton(colors: List<Color>, onColorSelected: (Color) -> Unit) {
             .clickable {
                 colorPickerOpen = true
             },
+        backgroundColor = MaterialTheme.colors.secondaryVariant,
+        elevation = 2.dp
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
                 .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Change card background color",
+                text = "Change card background color", color = MaterialTheme.colors.secondary
             )
-
             Canvas(
                 modifier = Modifier
                     .size(32.dp)

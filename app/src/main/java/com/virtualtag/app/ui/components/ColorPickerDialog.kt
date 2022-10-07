@@ -30,8 +30,8 @@ fun ColorPickerDialog(
 
     AlertDialog(
         shape = RoundedCornerShape(20.dp),
-        containerColor = MaterialTheme.colors.background,
-        titleContentColor = MaterialTheme.colors.primary,
+        containerColor = MaterialTheme.colors.secondaryVariant,
+        titleContentColor = MaterialTheme.colors.secondaryVariant,
         onDismissRequest = onDismiss,
         text = {
             LazyVerticalGrid(
@@ -40,17 +40,15 @@ fun ColorPickerDialog(
             ) {
                 items(colorList) { color ->
                     var borderWidth = 0.dp
-                    if (currentlySelected == color) {
-                        borderWidth = 2.dp
-                    }
+                    if (currentlySelected == color) borderWidth = 2.dp
 
                     Canvas(modifier = Modifier
                         .padding(16.dp)
-                        .clip(RoundedCornerShape(20.dp))
+                        .clip(RoundedCornerShape(10.dp))
                         .border(
                             borderWidth,
                             MaterialTheme.colors.primary,
-                            RoundedCornerShape(20.dp)
+                            RoundedCornerShape(10.dp)
                         )
                         .background(color)
                         .requiredSize(70.dp)
