@@ -1,5 +1,6 @@
 package com.virtualtag.app.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.Logo
 import com.virtualtag.app.ui.components.PrimaryButton
+import com.virtualtag.app.ui.theme.BlackBG
 import com.virtualtag.app.utils.stringToColor
 import com.virtualtag.app.viewmodels.CardViewModel
 
@@ -25,12 +27,14 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: (
         Surface(
             modifier = Modifier
                 .padding(it)
-                .fillMaxSize()
-                .padding(8.dp), color = MaterialTheme.colors.background
+                .fillMaxSize(),
+            color = MaterialTheme.colors.secondaryVariant,
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Logo(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
                 // List of all cards in the database
@@ -43,6 +47,7 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: (
                         ) {
                             Text(
                                 card.name,
+                                color = BlackBG,
                                 modifier = Modifier.padding(top = 48.dp, bottom = 48.dp)
                             )
                         }

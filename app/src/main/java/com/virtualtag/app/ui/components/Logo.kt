@@ -12,6 +12,7 @@ fun Logo(modifier: Modifier?) {
     Row(modifier = modifier ?: Modifier) {
         Text(
             "VIRTUAL",
+            color = MaterialTheme.colors.secondary,
             style = MaterialTheme.typography.h1,
             fontWeight = FontWeight.Light
         )

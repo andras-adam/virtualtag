@@ -64,24 +64,31 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Column(Modifier.weight(1F)) {
-                    CardContainer(onClick = { }, enabled = false, color = WhiteBG) {
+                    CardContainer(
+                        onClick = { },
+                        enabled = false,
+                        color = MaterialTheme.colors.secondaryVariant
+                    ) {
                         Spacer(Modifier.weight(1f))
                         Text(
                             "Ready to scan",
-                            color = Color.Black,
+                            color = MaterialTheme.colors.secondary,
                             style = MaterialTheme.typography.h1,
                         )
                         Spacer(Modifier.weight(2f))
                         Icon(
                             Icons.Outlined.Nfc,
                             null, modifier = Modifier.size(172.dp),
-                            tint = MaterialTheme.colors.primaryVariant
+                            tint = MaterialTheme.colors.primary
                         )
                         Spacer(Modifier.weight(2f))
-                        Text("Hold your device near your NFC tag to scan")
+                        Text(
+                            "Hold your device near your NFC tag to scan",
+                            color = MaterialTheme.colors.secondary,
+                        )
                         Spacer(Modifier.weight(2f))
                     }
                 }
