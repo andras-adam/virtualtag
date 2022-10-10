@@ -12,14 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.virtualtag.app.R
 
 @Composable
 fun PrimaryButton(text: String, onClick: () -> Unit) {
     Button(
         onClick = { onClick() },
         modifier = Modifier
-
             .padding(top = 8.dp, bottom = 8.dp),
         contentPadding = PaddingValues(all = 16.dp),
         elevation = ButtonDefaults.elevation(defaultElevation = 2.dp)
@@ -69,7 +70,8 @@ fun ColorButton(colors: List<Color>, onColorSelected: (Color) -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Change card background color", color = MaterialTheme.colors.secondary
+                text = stringResource(R.string.color_button_text),
+                color = MaterialTheme.colors.secondary
             )
             Canvas(
                 modifier = Modifier
