@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="card_added_success">Kártya sikeresen hozzáadva!</string>
+    <string name="add_new_card">Új kártya hozzáadása</string>
+    <string name="scan_success">Kártya sikeresen beolvasva</string>
+    <string name="name">Név</string>
+    <string name="cancel">Mégse</string>
+    <string name="empty_name_error">Töltsd ki a név mezőt</string>
+    <string name="color_button_text">Háttér módosítása</string>
+    <string name="edit">Szerkesztés</string>
+    <string name="scan_new_card">Új kártya</string>
+    <string name="ready_to_scan">Készen áll a beolvasásra</string>
+    <string name="scan_description">Tartsd az eszközt az NFC olvasóhoz a beolvasáshoz</string>
+</resources>
