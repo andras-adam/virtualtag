@@ -13,7 +13,12 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CardContainer(onClick: () -> Unit, enabled: Boolean, color: Color, children: @Composable () -> Unit) {
+fun CardContainer(
+    onClick: () -> Unit,
+    enabled: Boolean,
+    color: Color,
+    children: @Composable () -> Unit
+) {
     Card(
         elevation = 2.dp,
         modifier = Modifier

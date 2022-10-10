@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -22,7 +23,8 @@ fun CardScreen(
     goBack: () -> Unit
 ) {
     val card =
-        model.getCardById(id).observeAsState(Card(id = "0", name = "Unknown card", color = "red"))
+        model.getCardById(id)
+            .observeAsState(Card(id = "0", name = "Unknown card", color = "#fff8f8f8"))
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,10 +44,10 @@ fun CardScreen(
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize()
-                .padding(8.dp), color = MaterialTheme.colors.background
+                .padding(8.dp), color = colors.background
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                Text("View card details here")
+                Text("Card details - placeholder")
             }
         }
     }

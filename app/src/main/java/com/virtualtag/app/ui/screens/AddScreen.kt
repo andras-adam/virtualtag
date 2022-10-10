@@ -1,6 +1,5 @@
 package com.virtualtag.app.ui.screens
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -11,10 +10,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.virtualtag.app.R
 import com.virtualtag.app.data.ScanningViewModel
 import com.virtualtag.app.data.toHex
 import com.virtualtag.app.db.Card
@@ -22,7 +22,6 @@ import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.ColorButton
 import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.components.SecondaryButton
-import com.virtualtag.app.ui.theme.WhiteBG
 import com.virtualtag.app.ui.theme.cardBackGroundColors
 import com.virtualtag.app.utils.colorToString
 import com.virtualtag.app.viewmodels.CardViewModel
@@ -49,14 +48,15 @@ fun AddScreen(
                 color = color
             )
         )
-        Toast.makeText(context, "Card added successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT)
+            .show()
         goHome()
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add new card") },
+                title = { Text(context.getString(R.string.add_new_card)) },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
                         Icon(
@@ -104,7 +104,7 @@ fun AddScreen(
                                 tint = MaterialTheme.colors.secondary
                             )
                             Text(
-                                "NFC tag scanned successfully",
+                                stringResource(R.string.scan_success),
                                 modifier = Modifier,
                                 color = MaterialTheme.colors.secondary
                             )
@@ -116,7 +116,7 @@ fun AddScreen(
                         onValueChange = { newName ->
                             name = newName
                         },
-                        label = { Text(text = "Name") },
+                        label = { Text(stringResource(R.string.name)) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp),
@@ -134,7 +134,7 @@ fun AddScreen(
                             .weight(1f)
                             .padding(end = 4.dp)
                     ) {
-                        SecondaryButton(text = "Cancel", onClick = goHome)
+                        SecondaryButton(text = stringResource(R.string.cancel), onClick = goHome)
                     }
                     Column(
                         Modifier
@@ -145,7 +145,7 @@ fun AddScreen(
                             if (name.text == "") {
                                 return@PrimaryButton Toast.makeText(
                                     context,
-                                    "Please set a name for your card",
+                                    context.getString(R.string.empty_name_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
