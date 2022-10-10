@@ -14,12 +14,12 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.data.ScanningViewModel
 import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.PrimaryButton
-import com.virtualtag.app.ui.theme.WhiteBG
+import com.virtualtag.app.R
 
 @Composable
 fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard: () -> Unit) {
@@ -43,7 +43,7 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Scan") },
+                title = { Text(stringResource(R.string.scan_new_card)) },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
                         Icon(
@@ -74,7 +74,7 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
                     ) {
                         Spacer(Modifier.weight(1f))
                         Text(
-                            "Ready to scan",
+                            stringResource(R.string.ready_to_scan),
                             color = MaterialTheme.colors.secondary,
                             style = MaterialTheme.typography.h1,
                         )
@@ -86,13 +86,13 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
                         )
                         Spacer(Modifier.weight(2f))
                         Text(
-                            "Hold your device near your NFC tag to scan",
+                            stringResource(R.string.scan_description),
                             color = MaterialTheme.colors.secondary,
                         )
                         Spacer(Modifier.weight(2f))
                     }
                 }
-                PrimaryButton(text = "Cancel", onClick = goBack)
+                PrimaryButton(text = stringResource(R.string.cancel), onClick = goBack)
             }
         }
     }
