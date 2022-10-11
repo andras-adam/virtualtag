@@ -1,5 +1,6 @@
 package com.virtualtag.app.ui.screens
 
+import android.nfc.NfcAdapter
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -7,23 +8,34 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.virtualtag.app.ui.components.CardContainer
-import com.virtualtag.app.ui.components.Logo
-import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.theme.BlackBG
 import com.virtualtag.app.utils.stringToColor
 import com.virtualtag.app.viewmodels.CardViewModel
 import com.virtualtag.app.R
+import com.virtualtag.app.ui.components.*
 
 @Composable
 fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: () -> Unit) {
+    val context = LocalContext.current
     val cardList = model.getAllCards().observeAsState(listOf())
+    var errorDialogOpen by remember { mutableStateOf(false) }
+
+    // Set up NFC adapter
+    val adapter = NfcAdapter.getDefaultAdapter(context)
+
+    // Check if the phone has NFC sensor and show error if sensor is not available
+    fun onScanClick() {
+        if (adapter != null) return scanCard()
+        errorDialogOpen = true
+    }
+
     Scaffold {
         Surface(
             modifier = Modifier
@@ -54,8 +66,16 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: (
                         }
                     }
                 }
-                PrimaryButton(text = stringResource(R.string.scan_new_card), onClick = scanCard)
+                PrimaryButton(
+                    text = stringResource(R.string.scan_new_card),
+                    onClick = { onScanClick() })
             }
         }
+    }
+
+    if (errorDialogOpen) {
+        NfcErrorDialog(
+            closeDialog = { errorDialogOpen = false },
+        )
     }
 }
