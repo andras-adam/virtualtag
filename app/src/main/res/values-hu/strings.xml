@@ -11,4 +11,6 @@
     <string name="scan_new_card">Új kártya</string>
     <string name="ready_to_scan">Készen áll a beolvasásra</string>
     <string name="scan_description">Tartsd az eszközt az NFC olvasóhoz a beolvasáshoz</string>
+    <string name="nfc_sensor_error">NFC érzékelő hiba</string>
+    <string name="nfc_sensor_error_description">Úgy tűnik, hogy a készüléked nem rendelkezik NFC érzékelővel. Sajnos ezzel az eszközzel nem lehet NFC kártyákat beolvasni.</string>
 </resources>
