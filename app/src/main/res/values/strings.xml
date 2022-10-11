@@ -11,4 +11,6 @@
     <string name="scan_new_card">Scan new card</string>
     <string name="ready_to_scan">Ready to scan</string>
     <string name="scan_description">Hold your device near your NFC tag to scan</string>
+    <string name="nfc_sensor_error">NFC sensor error</string>
+    <string name="nfc_sensor_error_description">It seems like your device does not have an NFC sensor. Unfortunately, you can\'t scan NFC cards with this device.</string>
 </resources>
