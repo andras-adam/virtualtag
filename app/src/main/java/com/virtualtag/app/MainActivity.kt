@@ -69,7 +69,8 @@ class MainActivity : ComponentActivity() {
                             model = cardViewModel,
                             id = it.arguments?.getString("id") ?: "0",
                             editCard = editCard,
-                            goBack = goBack
+                            goBack = goBack,
+                            goHome = goHome
                         )
                     }
                     composable("edit/{id}") {

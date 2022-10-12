@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.virtualtag.app.R
 
 @Composable
-fun NfcErrorDialog(
+fun Dialog(
     closeDialog: (() -> Unit)
 ) {
     AlertDialog(

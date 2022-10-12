@@ -17,11 +17,10 @@ import androidx.compose.ui.unit.dp
 import com.virtualtag.app.R
 
 @Composable
-fun PrimaryButton(text: String, onClick: () -> Unit) {
+fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier) {
     Button(
         onClick = { onClick() },
-        modifier = Modifier
-            .padding(top = 8.dp, bottom = 8.dp),
+        modifier = modifier,
         contentPadding = PaddingValues(all = 16.dp),
         elevation = ButtonDefaults.elevation(defaultElevation = 2.dp)
     ) {
@@ -32,11 +31,10 @@ fun PrimaryButton(text: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun SecondaryButton(text: String, onClick: () -> Unit) {
+fun SecondaryButton(text: String, onClick: () -> Unit, modifier: Modifier) {
     OutlinedButton(
         onClick = { onClick() },
-        modifier = Modifier
-            .padding(top = 8.dp, bottom = 8.dp),
+        modifier = modifier,
         contentPadding = PaddingValues(all = 16.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondaryVariant)
     ) {
@@ -87,7 +85,7 @@ fun ColorButton(colors: List<Color>, onColorSelected: (Color) -> Unit) {
     }
 
     if (colorPickerOpen) {
-        ColorPickerDialog(
+        ColorPicker(
             colorList = colors,
             onDismiss = { colorPickerOpen = false },
             currentlySelected = currentlySelected,

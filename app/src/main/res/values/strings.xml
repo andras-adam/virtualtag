@@ -7,10 +7,14 @@
     <string name="cancel">Cancel</string>
     <string name="empty_name_error">Please set a name for your card</string>
     <string name="color_button_text">Change card background color</string>
-    <string name="edit">Edit card</string>
+    <string name="edit">Edit</string>
     <string name="scan_new_card">Scan new card</string>
     <string name="ready_to_scan">Ready to scan</string>
     <string name="scan_description">Hold your device near your NFC tag to scan</string>
     <string name="nfc_sensor_error">NFC sensor error</string>
     <string name="nfc_sensor_error_description">It seems like your device does not have an NFC sensor. Unfortunately, you can\'t scan NFC cards with this device.</string>
+    <string name="delete_confirm">Delete card</string>
+    <string name="delete_confirm_description">Are you sure you want to delete your card?</string>
+    <string name="card_deleted_success">Card deleted successfully!</string>
+    <string name="delete">Delete</string>
 </resources>
