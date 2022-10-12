@@ -3,7 +3,7 @@ package com.virtualtag.app.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // Primary logo colors
-val Blue500 = Color(0xFF2196F3)
+val Blue500 = Color(0xFF1275C4)
 val Blue700 = Color(0xFF0B5086)
 
 // Light mode background color

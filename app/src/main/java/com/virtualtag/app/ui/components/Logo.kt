@@ -18,7 +18,7 @@ fun Logo(modifier: Modifier?) {
         )
         Text(
             "TAG",
-            color = MaterialTheme.colors.primaryVariant,
+            color = MaterialTheme.colors.primary,
             style = MaterialTheme.typography.h1
         )
     }
