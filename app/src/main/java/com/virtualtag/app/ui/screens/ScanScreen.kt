@@ -92,7 +92,11 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
                         Spacer(Modifier.weight(2f))
                     }
                 }
-                PrimaryButton(text = stringResource(R.string.cancel), onClick = goBack)
+                PrimaryButton(
+                    text = stringResource(R.string.cancel),
+                    onClick = goBack,
+                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                )
             }
         }
     }
