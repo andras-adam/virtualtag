@@ -8,12 +8,12 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.MifareClassic
 import android.nfc.tech.MifareUltralight
-import android.nfc.tech.NdefFormatable
 import android.nfc.tech.NfcA
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import java.io.IOException
 
 // Byte array to HEX helper
 fun ByteArray.toHex(): String = joinToString(separator = "") { "%02x".format(it) }
@@ -40,11 +40,8 @@ class ScanningViewModel : ViewModel() {
         val intentFilter = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
         val intentFiltersArray = arrayOf(intentFilter)
         val techListsArray = arrayOf(
-            arrayOf(
-                NfcA::class.java.name,
-                MifareUltralight::class.java.name,
-                NdefFormatable::class.java.name
-            )
+            arrayOf(MifareClassic::class.java.name),
+            arrayOf(MifareUltralight::class.java.name),
         )
         // Enable foreground dispatch
         adapter.enableForegroundDispatch(
@@ -75,6 +72,17 @@ class ScanningViewModel : ViewModel() {
             val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
             Log.i("NFC", "scanned ${tag?.id?.toHex()}")
             _scannedTag.value = tag
+            //
+            if (tag?.techList?.contains(MifareClassic::class.java.name) == true) {
+                val mfc = MifareClassic.get(scannedTag.value)
+                val data = MifareClassicHelper(mfc)
+                Log.d("MFC", data.data)
+            }
+            if (tag?.techList?.contains(MifareUltralight::class.java.name) == true) {
+                val mfu = MifareUltralight.get(scannedTag.value)
+                val data = MifareUltralightHelper(mfu)
+                Log.d("MFU", data.data)
+            }
         }
     }
 }
