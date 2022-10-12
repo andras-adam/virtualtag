@@ -73,11 +73,16 @@ class MainActivity : ComponentActivity() {
                             goHome = goHome
                         )
                     }
-                    composable("edit/{id}") {
+                    composable("edit/{id}",
+                        arguments = listOf(navArgument("id") {
+                            type = NavType.StringType
+                        })
+                    ) {
                         EditScreen(
                             model = cardViewModel,
                             id = it.arguments?.getString("id") ?: "0",
-                            goBack = goBack
+                            goBack = goBack,
+                            goHome = goHome
                         )
                     }
                 }

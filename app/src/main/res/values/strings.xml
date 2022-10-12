@@ -17,4 +17,5 @@
     <string name="delete_confirm_description">Are you sure you want to delete your card?</string>
     <string name="card_deleted_success">Card deleted successfully!</string>
     <string name="delete">Delete</string>
+    <string name="card_updated_success">Card updated successfully!</string>
 </resources>

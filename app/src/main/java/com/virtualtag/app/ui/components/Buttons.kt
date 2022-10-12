@@ -45,9 +45,13 @@ fun SecondaryButton(text: String, onClick: () -> Unit, modifier: Modifier) {
 }
 
 @Composable
-fun ColorButton(colors: List<Color>, onColorSelected: (Color) -> Unit) {
+fun ColorButton(colors: List<Color>, selected: Color, onColorSelected: (Color) -> Unit) {
     var colorPickerOpen by remember { mutableStateOf(false) }
-    var currentlySelected by remember { mutableStateOf(colors[0]) }
+    var currentlySelected by remember { mutableStateOf(selected) }
+
+    LaunchedEffect(key1 = selected) {
+        currentlySelected = selected
+    }
 
     Card(
         modifier = Modifier

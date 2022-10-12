@@ -110,7 +110,6 @@ fun AddScreen(
                             )
                         }
                     }
-
                     TextField(
                         value = name,
                         onValueChange = { newName ->
@@ -126,7 +125,7 @@ fun AddScreen(
                     )
                     ColorButton(colors = cardBackGroundColors, onColorSelected = { value ->
                         color = colorToString(value)
-                    })
+                    }, selected = cardBackGroundColors[0])
                 }
                 Row {
                     Column(
