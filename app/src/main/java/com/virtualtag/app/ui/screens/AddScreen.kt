@@ -110,7 +110,6 @@ fun AddScreen(
                             )
                         }
                     }
-
                     TextField(
                         value = name,
                         onValueChange = { newName ->
@@ -126,7 +125,7 @@ fun AddScreen(
                     )
                     ColorButton(colors = cardBackGroundColors, onColorSelected = { value ->
                         color = colorToString(value)
-                    })
+                    }, selected = cardBackGroundColors[0])
                 }
                 Row {
                     Column(
@@ -134,7 +133,11 @@ fun AddScreen(
                             .weight(1f)
                             .padding(end = 4.dp)
                     ) {
-                        SecondaryButton(text = stringResource(R.string.cancel), onClick = goHome)
+                        SecondaryButton(
+                            text = stringResource(R.string.cancel),
+                            onClick = goHome,
+                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                        )
                     }
                     Column(
                         Modifier
@@ -150,7 +153,7 @@ fun AddScreen(
                                 ).show()
                             }
                             addCardToDb()
-                        })
+                        }, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
                     }
                 }
             }

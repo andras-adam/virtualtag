@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ColorPickerDialog(
+fun ColorPicker(
     colorList: List<Color>,
     onDismiss: (() -> Unit),
     currentlySelected: Color,
@@ -31,7 +31,7 @@ fun ColorPickerDialog(
         shape = RoundedCornerShape(20.dp),
         containerColor = MaterialTheme.colors.secondaryVariant,
         titleContentColor = MaterialTheme.colors.secondaryVariant,
-        onDismissRequest = onDismiss,
+        onDismissRequest = {},
         text = {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),

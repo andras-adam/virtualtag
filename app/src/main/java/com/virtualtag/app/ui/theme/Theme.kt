@@ -9,8 +9,8 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
-    primary = Blue700,
-    primaryVariant = Blue500,
+    primary = Blue500,
+    primaryVariant = Blue700,
     secondary = WhiteBG,
     secondaryVariant = Gray700,
     background = BlackBG,
@@ -36,7 +36,7 @@ fun VirtualTagTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
     val systemUIController = rememberSystemUiController()
     if (darkTheme) {
         systemUIController.setStatusBarColor(
-            color = BlackBG
+            color = Gray700
         )
     } else {
         systemUIController.setStatusBarColor(

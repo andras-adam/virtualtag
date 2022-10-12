@@ -4,16 +4,18 @@ import android.nfc.NfcAdapter
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.ui.theme.BlackBG
 import com.virtualtag.app.utils.stringToColor
@@ -50,6 +52,11 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: (
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Logo(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
+                PrimaryButton(
+                    text = stringResource(R.string.scan_new_card),
+                    onClick = { onScanClick() },
+                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                )
                 // List of all cards in the database
                 LazyColumn {
                     items(cardList.value) { card ->
@@ -61,21 +68,53 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: (
                             Text(
                                 card.name,
                                 color = BlackBG,
-                                modifier = Modifier.padding(top = 48.dp, bottom = 48.dp)
+                                modifier = Modifier.padding(top = 64.dp, bottom = 64.dp)
                             )
                         }
                     }
                 }
-                PrimaryButton(
-                    text = stringResource(R.string.scan_new_card),
-                    onClick = { onScanClick() })
             }
         }
     }
 
     if (errorDialogOpen) {
-        NfcErrorDialog(
-            closeDialog = { errorDialogOpen = false },
+        Dialog(
+            closeDialog = { errorDialogOpen = false }, title = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        Icons.Outlined.ErrorOutline,
+                        null, modifier = Modifier
+                            .padding(top = 24.dp)
+                            .size(72.dp),
+                        tint = Color.Red
+                    )
+                    Text(
+                        stringResource(R.string.nfc_sensor_error),
+                        style = MaterialTheme.typography.h5,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colors.secondary,
+                        modifier = Modifier.padding(top = 24.dp)
+                    )
+                }
+            }, description = {
+                Text(
+                    stringResource(
+                        R.string.nfc_sensor_error_description
+
+                    ),
+                    color = MaterialTheme.colors.secondary,
+                    textAlign = TextAlign.Center
+                )
+            }, confirmButton = {}, dismissButton = {
+                PrimaryButton(
+                    text = "OK",
+                    onClick = { errorDialogOpen = false },
+                    modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
+                )
+            }
         )
     }
 }
