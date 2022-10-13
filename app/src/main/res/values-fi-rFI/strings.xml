@@ -21,4 +21,18 @@
     <string name="card_updated_success">Kortin päivitys onnistui!</string>
     <string name="choose_picture">Valitse kuva galleriasta</string>
     <string name="take_picture">Ota kuva</string>
+    <string name="clipboard">Kopioitu leikepöydälle</string>
+    <string name="unknown">Tunnistamon</string>
+    <string name="serial_number">Sarjanumero</string>
+    <string name="technologies">NFC teknologia</string>
+    <string name="type">Tyyppi</string>
+    <string name="mem_size">Muistin koko</string>
+    <string name="mem_page">Muisti sivu</string>
+    <string name="bytes">tavua</string>
+    <string name="not_supported">Korttisi ei ole tuettu</string>
+    <string name="transcieve_timeout">Lähetin-vastaanotin päättyi</string>
+    <string name="transcieve_max_length">Lähetin-vastaanotin maksimi pituus</string>
+    <string name="mem_block_count">Muisti lohkon määrä</string>
+    <string name="mem_block">Muisti lohko</string>
+    <string name="mem_sector_count">Muisti sektorin määrä</string>
 </resources>

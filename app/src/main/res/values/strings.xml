@@ -20,4 +20,22 @@
     <string name="card_updated_success">Card updated successfully!</string>
     <string name="choose_picture">Choose a picture from gallery</string>
     <string name="take_picture">Take a picture</string>
+    <string name="clipboard">Copied to clipboard!</string>
+    <string name="unknown">Unknown</string>
+    <string name="serial_number">Serial number</string>
+    <string name="technologies">NFC technologies</string>
+    <string name="type">Type</string>
+    <string name="atqa" translatable="false">ATQA</string>
+    <string name="sak" translatable="false">SAK</string>
+    <string name="transcieve_timeout">Transcieve timeout</string>
+    <string name="transcieve_max_length">Transcieve max length</string>
+    <string name="mem_size">Memory size</string>
+    <string name="mem_block_count">Memory block count</string>
+    <string name="mem_sector_count">Memory sector count</string>
+    <string name="mem_block">Memory block</string>
+    <string name="mem_page">Memory page</string>
+    <string name="ms">ms</string>
+    <string name="bytes">bytes</string>
+    <string name="not_supported">The card is not supported.</string>
+    <string name="ok" translatable="false">OK</string>
 </resources>
