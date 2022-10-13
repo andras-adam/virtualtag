@@ -18,4 +18,6 @@
     <string name="card_deleted_success">Card deleted successfully!</string>
     <string name="delete">Delete</string>
     <string name="card_updated_success">Card updated successfully!</string>
+    <string name="choose_picture">Choose a picture from gallery</string>
+    <string name="take_picture">Take a picture</string>
 </resources>

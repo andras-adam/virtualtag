@@ -1,3 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">VirtualTag</string>
+    <string name="add_new_card">Lisää uusi kortti</string>
+    <string name="scan_success">NFC tagin skannaus onnistunut</string>
+    <string name="name">Nimi</string>
+    <string name="cancel">Peruuta</string>
+    <string name="empty_name_error">Nimeä korttisi</string>
+    <string name="color_button_text">"Vaihda kortin tausta väri "</string>
+    <string name="edit">Muokkaa</string>
+    <string name="scan_new_card">Skannaa uusi kortti</string>
+    <string name="ready_to_scan">Laite on valmis skannaamaan</string>
+    <string name="scan_description">Pidä laitteesi lähellä NFC-tagia jotta voidaan skannata</string>
+    <string name="nfc_sensor_error">NFC sensori virhe</string>
+    <string name="card_added_success">Kortin lisäys onnistui!</string>
+    <string name="nfc_sensor_error_description">Laitteella ei ole NFC sensoria, valitettavasti et voi skannata NFC korttia tällä laitteella</string>
+    <string name="delete_confirm">Poista kortti</string>
+    <string name="delete_confirm_description">Oletko varma että haluat poistaa korttisi?</string>
+    <string name="card_deleted_success">Kortin poisto onnistui!</string>
+    <string name="delete">Poista</string>
+    <string name="card_updated_success">Kortin päivitys onnistui!</string>
+    <string name="choose_picture">Valitse kuva galleriasta</string>
+    <string name="take_picture">Ota kuva</string>
 </resources>
