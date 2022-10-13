@@ -7,8 +7,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.virtualtag.app.db.Card
 import com.virtualtag.app.utils.formatHex
+import com.virtualtag.app.R
 
 @Composable
 fun MifareUltralightView(card: Card) {
@@ -17,9 +19,9 @@ fun MifareUltralightView(card: Card) {
         .replace("android.nfc.tech.", "")
         .replace(",", ", ")
     val type = when (card.mifareUltralightType ?: MifareUltralight.TYPE_UNKNOWN) {
-        MifareUltralight.TYPE_ULTRALIGHT -> "Ultralight"
-        MifareUltralight.TYPE_ULTRALIGHT_C -> "Ultralight C"
-        else -> "Unknown"
+        MifareUltralight.TYPE_ULTRALIGHT -> "MifareUltralight Ultralight"
+        MifareUltralight.TYPE_ULTRALIGHT_C -> "MifareUltralight Ultralight C"
+        else -> "MifareUltralight ${stringResource(R.string.unknown)}"
     }
     val size = when (card.mifareUltralightType ?: MifareUltralight.TYPE_UNKNOWN) {
         MifareUltralight.TYPE_ULTRALIGHT -> 16 * MifareUltralight.PAGE_SIZE
@@ -35,36 +37,59 @@ fun MifareUltralightView(card: Card) {
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
-            DataRow(title = "Serial number", content = id, icon = Icons.Filled.Key)
+            DataRow(
+                title = stringResource(R.string.serial_number),
+                content = id,
+                icon = Icons.Filled.Key)
         }
         item {
-            DataRow(title = "NFC technologies", content = techList, icon = Icons.Filled.Style)
+            DataRow(
+                title = stringResource(R.string.technologies),
+                content = techList,
+                icon = Icons.Filled.Style)
         }
         item {
-            DataRow(title = "MifareUltralight type", content = type, icon = Icons.Filled.Category)
+            DataRow(
+                title = stringResource(R.string.type),
+                content = type,
+                icon = Icons.Filled.Category)
         }
         item {
-            DataRow(title = "Memory size", content = "$size bytes", icon = Icons.Filled.Save)
+            DataRow(
+                title = stringResource(R.string.mem_size),
+                content = "$size bytes",
+                icon = Icons.Filled.Save)
         }
         item {
-            DataRow(title = "Transcieve timeout", content = "$timeout ms", icon = Icons.Filled.Sensors)
+            DataRow(
+                title = stringResource(R.string.transcieve_timeout),
+                content = "$timeout ${stringResource(R.string.ms)}",
+                icon = Icons.Filled.Sensors)
         }
         item {
-            DataRow(title = "Transcieve max length", content = "$maxTranscieveLength bytes", icon = Icons.Filled.Sensors)
+            DataRow(
+                title = stringResource(R.string.transcieve_max_length),
+                content = "$maxTranscieveLength ${stringResource(R.string.bytes)}",
+                icon = Icons.Filled.Sensors)
         }
         item {
-            DataRow(title = "ATQA", content = atqa, icon = Icons.Filled.Code)
+            DataRow(
+                title = stringResource(R.string.atqa),
+                content = atqa,
+                icon = Icons.Filled.Code)
         }
         item {
-            DataRow(title = "SAK", content = "$sak", icon = Icons.Filled.Code)
+            DataRow(
+                title = stringResource(R.string.sak),
+                content = "$sak",
+                icon = Icons.Filled.Code)
         }
         if (data.isNotEmpty()) {
             items(dataPageCount) { index ->
                 DataRow(
-                    title = "Memory page ${index + 1}",
+                    title = "${stringResource(R.string.mem_page)} ${index + 1}",
                     content = formatHex(data.substring(index * 8, index * 8 + 8)),
-                    icon = Icons.Filled.Memory
-                )
+                    icon = Icons.Filled.Memory)
             }
         }
     }
