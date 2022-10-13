@@ -32,4 +32,5 @@
     <string name="mem_page">Memória oldal</string>
     <string name="bytes">bájt</string>
     <string name="ms">ms</string>
+    <string name="not_supported">Ez a kártya nem támogatott.</string>
 </resources>

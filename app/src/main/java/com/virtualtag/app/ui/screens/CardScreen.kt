@@ -51,7 +51,7 @@ fun CardScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { editCard(card.value?.id ?: "0") }) {
+                    IconButton(onClick = { editCard(card.value?.id ?: "") }) {
                         Icon(Icons.Filled.Edit, null)
                     }
                     IconButton(onClick = { deleteDialogOpen = true }) {
@@ -74,7 +74,7 @@ fun CardScreen(
                     } else if (card.value?.techList?.contains(MifareUltralight::class.java.name) == true) {
                         MifareUltralightView(card = card.value!!)
                     } else {
-                        Text("The card is not supported.")
+                        Text(stringResource(R.string.not_supported))
                     }
                 }
             }
@@ -111,12 +111,12 @@ fun CardScreen(
                 )
             }, confirmButton = {
                 SecondaryButton(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     onClick = { deleteDialogOpen = false }, modifier = Modifier.padding(top = 4.dp)
                 )
             }, dismissButton = {
                 PrimaryButton(
-                    text = "OK",
+                    text = stringResource(R.string.delete),
                     onClick = {
                         model.deleteCard(card.value!!)
                         deleteDialogOpen = false

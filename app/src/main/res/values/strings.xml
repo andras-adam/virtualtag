@@ -34,4 +34,6 @@
     <string name="mem_page">Memory page</string>
     <string name="ms">ms</string>
     <string name="bytes">bytes</string>
+    <string name="not_supported">The card is not supported.</string>
+    <string name="ok" translatable="false">OK</string>
 </resources>

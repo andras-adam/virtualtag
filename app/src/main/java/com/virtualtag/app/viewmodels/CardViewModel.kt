@@ -23,9 +23,9 @@ class CardViewModel(application: Application) : ViewModel() {
         }
     }
 
-    fun updateCard(card: Card) {
+    fun updateCard(id: String, name: String, color: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            cardDB.cardDao().updateCard(card)
+            cardDB.cardDao().updateCard(id, name, color)
         }
     }
 
