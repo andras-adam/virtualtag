@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.data.ScanningViewModel
 import com.virtualtag.app.ui.components.CardContainer
-import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.R
 import com.virtualtag.app.ui.components.SecondaryButton
 

@@ -9,7 +9,6 @@ import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -40,10 +38,8 @@ import com.virtualtag.app.ui.theme.BlackBG
 import com.virtualtag.app.utils.stringToColor
 import com.virtualtag.app.viewmodels.CardViewModel
 
-
 @Composable
-fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: () -> Unit, takePhoto: () -> Unit) {
-
+fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -> Unit, takePhoto: () -> Unit) {
     val context = LocalContext.current
     var imageUri by remember {
         mutableStateOf<Uri?>(null)

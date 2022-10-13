@@ -42,10 +42,16 @@ fun AddScreen(
     var color by remember { mutableStateOf("#fff8f8f8") }
 
     fun addCardToDb() {
-        val card = Card(
-            id = scannedTag.value?.id?.toHex() ?: "0",
+        if (name.text == "") {
+            Toast.makeText(context, context.getString(R.string.empty_name_error), Toast.LENGTH_SHORT).show()
+            return
+        }
+        model.addCard(Card(
+            id = 0,
             name = name.text,
             color = color,
+            // Tag properties
+            serialNumber = scannedTag.value?.id?.toHex() ?: "0",
             techList = scannedTag.value?.techList?.joinToString(",") ?: "",
             // MifareClassic properties
             mifareClassicAtqa = mifareClassicInfo.value?.atqa,
@@ -64,8 +70,7 @@ fun AddScreen(
             mifareUltralightAtqa = mifareUltralightInfo.value?.atqa,
             mifareUltralightSak = mifareUltralightInfo.value?.sak,
             mifareUltralightData = mifareUltralightInfo.value?.data,
-        )
-        model.addCard(card)
+        ))
         Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT).show()
         goHome()
     }
@@ -158,16 +163,10 @@ fun AddScreen(
                             .weight(1f)
                             .padding(start = 4.dp)
                     ) {
-                        PrimaryButton(text = "Ok", onClick = {
-                            if (name.text == "") {
-                                return@PrimaryButton Toast.makeText(
-                                    context,
-                                    context.getString(R.string.empty_name_error),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            addCardToDb()
-                        }, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+                        PrimaryButton(
+                            text = stringResource(R.string.ok),
+                            onClick = { addCardToDb() },
+                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
                     }
                 }
             }

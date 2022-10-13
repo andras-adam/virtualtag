@@ -5,15 +5,15 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Card(
-    /*
-    * The tag ID from android.nfc.Tag should be the primary key, so in case the user tries to add
-    * the same Tag twice, then OnConflictStrategy can easily handle the duplicates within the DAO
-    * (note - the tag ID coming from android.nfc.Tag cannot be handled as Integer)
-    */
-    @PrimaryKey
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+
+    // Display properties
     val name: String,
     val color: String,
+
+    // Tag properties
+    val serialNumber: String,
     val techList: String,
 
     // MifareClassic properties

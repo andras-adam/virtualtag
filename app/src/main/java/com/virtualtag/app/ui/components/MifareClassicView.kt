@@ -14,7 +14,7 @@ import com.virtualtag.app.R
 
 @Composable
 fun MifareClassicView(card: Card) {
-    val id = formatHex(card.id)
+    val serialNumber = formatHex(card.serialNumber)
     val techList = card.techList
         .replace("android.nfc.tech.", "")
         .replace(",", ", ")
@@ -37,7 +37,7 @@ fun MifareClassicView(card: Card) {
         item {
             DataRow(
                 title = stringResource(R.string.serial_number),
-                content = id,
+                content = serialNumber,
                 icon = Icons.Filled.Key)
         }
         item {

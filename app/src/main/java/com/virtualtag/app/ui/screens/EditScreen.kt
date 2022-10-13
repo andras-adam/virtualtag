@@ -13,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.viewmodels.CardViewModel
 import com.virtualtag.app.R
-import com.virtualtag.app.db.Card
 import com.virtualtag.app.ui.components.ColorButton
 import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.components.SecondaryButton
@@ -22,7 +21,7 @@ import com.virtualtag.app.utils.colorToString
 import com.virtualtag.app.utils.stringToColor
 
 @Composable
-fun EditScreen(model: CardViewModel, id: String, goBack: () -> Unit, goHome: () -> Unit) {
+fun EditScreen(model: CardViewModel, id: Int, goBack: () -> Unit, goHome: () -> Unit) {
     val context = LocalContext.current
     val card = model.getCardById(id).observeAsState(null)
 

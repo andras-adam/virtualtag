@@ -33,8 +33,8 @@ import com.virtualtag.app.viewmodels.CardViewModel
 @Composable
 fun CardScreen(
     model: CardViewModel,
-    id: String,
-    editCard: (id: String) -> Unit,
+    id: Int,
+    editCard: (id: Int) -> Unit,
     goBack: () -> Unit,
     goHome: () -> Unit
 ) {
@@ -51,7 +51,7 @@ fun CardScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { editCard(card.value?.id ?: "") }) {
+                    IconButton(onClick = { editCard(card.value?.id ?: 0) }) {
                         Icon(Icons.Filled.Edit, null)
                     }
                     IconButton(onClick = { deleteDialogOpen = true }) {
