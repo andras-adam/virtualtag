@@ -4,8 +4,6 @@ import android.nfc.tech.MifareClassic
 import android.nfc.tech.MifareUltralight
 import androidx.compose.foundation.layout.*
 import android.widget.Toast
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
@@ -42,7 +40,6 @@ fun CardScreen(
 ) {
     val card = model.getCardById(id).observeAsState(null)
     val context = LocalContext.current
-//    val card = model.getCardById(id).observeAsState(Card(id = "0", name = "Unknown card", color = "#fff8f8f8", techList = ""))
     var deleteDialogOpen by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
@@ -50,10 +47,7 @@ fun CardScreen(
                 title = { Text(card.value?.name ?: "") },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            null
-                        )
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 },
                 actions = {
@@ -74,12 +68,14 @@ fun CardScreen(
                 .padding(8.dp), color = MaterialTheme.colors.background
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                if (card.value == null) {
-                    // Loading
-                } else if (card.value?.techList?.contains(MifareClassic::class.java.name) == true) {
-                    MifareClassicView(card = card.value!!)
-                } else if (card.value?.techList?.contains(MifareUltralight::class.java.name) == true) {
-                    MifareUltralightView(card = card.value!!)
+                if (card.value != null) {
+                    if (card.value?.techList?.contains(MifareClassic::class.java.name) == true) {
+                        MifareClassicView(card = card.value!!)
+                    } else if (card.value?.techList?.contains(MifareUltralight::class.java.name) == true) {
+                        MifareUltralightView(card = card.value!!)
+                    } else {
+                        Text("The card is not supported.")
+                    }
                 }
             }
         }

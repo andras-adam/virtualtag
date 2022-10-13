@@ -31,6 +31,7 @@ fun MifareUltralightView(card: Card) {
     val atqa = card.mifareUltralightAtqa ?: ""
     val sak = card.mifareUltralightSak ?: 0
     val data = card.mifareUltralightData ?: ""
+    val dataPageCount = data.length / 2 / MifareUltralight.PAGE_SIZE
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
@@ -57,14 +58,14 @@ fun MifareUltralightView(card: Card) {
         item {
             DataRow(title = "SAK", content = "$sak", icon = Icons.Filled.Code)
         }
-//        if (data.isNotEmpty()) {
-//            items(blockCount) { index ->
-//                DataRow(
-//                    title = "Memory block ${index + 1}",
-//                    content = formatHex(data.substring(index * 32, index * 32 + 32)),
-//                    icon = Icons.Filled.Memory
-//                )
-//            }
-//        }
+        if (data.isNotEmpty()) {
+            items(dataPageCount) { index ->
+                DataRow(
+                    title = "Memory page ${index + 1}",
+                    content = formatHex(data.substring(index * 8, index * 8 + 8)),
+                    icon = Icons.Filled.Memory
+                )
+            }
+        }
     }
 }
