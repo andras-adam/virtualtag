@@ -4,7 +4,7 @@ import android.nfc.tech.MifareUltralight
 import android.util.Log
 import java.io.IOException
 
-class MifareUltralightHelper(tag: MifareUltralight) {
+class MifareUltralightInfo(tag: MifareUltralight) {
     val type: Int
     val timeout: Int
     val maxTransceiveLength: Int

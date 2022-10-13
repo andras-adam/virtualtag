@@ -1,5 +1,9 @@
 package com.virtualtag.app.ui.screens
 
+import android.nfc.tech.MifareClassic
+import android.nfc.tech.MifareUltralight
+import android.nfc.tech.NfcA
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -35,19 +39,41 @@ fun AddScreen(
 ) {
     val context = LocalContext.current
     val scannedTag = scanningViewModel.scannedTag.observeAsState()
-    val tagId = scannedTag.value?.id?.toHex() ?: "0"
+    val mifareClassicInfo = scanningViewModel.mifareClassicInfo.observeAsState()
+    val mifareUltralightInfo = scanningViewModel.mifareUltralightInfo.observeAsState()
 
     var name by remember { mutableStateOf(TextFieldValue("")) }
     var color by remember { mutableStateOf("#fff8f8f8") }
 
     fun addCardToDb() {
-        model.addCard(
-            Card(
-                id = tagId,
-                name = name.text,
-                color = color
-            )
+
+        // Construct card
+        val card = Card(
+            id = scannedTag.value?.id?.toHex() ?: "0",
+            name = name.text,
+            color = color,
+            techList = scannedTag.value?.techList?.joinToString(",") ?: "",
+//            nfcaAtqa = nfca?.atqa?.toHex(),
+//            nfcaSak = nfca?.sak?.toInt(),
+//            nfcaTimeout = nfca?.timeout,
+//            nfcaMaxTransceiveLength = nfca?.maxTransceiveLength,
+            mifareClassicTimeout = mifareClassicInfo.value?.timeout,
+            mifareClassicMaxTransceiveLength = mifareClassicInfo.value?.maxTransceiveLength,
+            mifareClassicSize = mifareClassicInfo.value?.size,
+            mifareClassicType = mifareClassicInfo.value?.type,
+            mifareClassicSectorCount = mifareClassicInfo.value?.sectorCount,
+            mifareClassicBlockCount = mifareClassicInfo.value?.blockCount,
+            mifareClassicData = mifareClassicInfo.value?.data,
+            mifareUltralightType = mifareUltralightInfo.value?.type,
+            mifareUltralightTimeout = mifareUltralightInfo.value?.timeout,
+            mifareUltralightMaxTransceiveLength = mifareUltralightInfo.value?.maxTransceiveLength,
+            mifareUltralightData = mifareUltralightInfo.value?.data,
         )
+
+        Log.d("ADDING CARD", card.toString())
+
+        //
+        model.addCard(card)
         Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT)
             .show()
         goHome()

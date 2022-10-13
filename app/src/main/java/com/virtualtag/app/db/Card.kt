@@ -12,9 +12,29 @@ data class Card(
     */
     @PrimaryKey
     val id: String,
-    // TODO - figure out what kind of card data to save (Tag cannot be saved in Room)
-    // val data: Tag,
     val name: String,
     val color: String,
+    val techList: String,
+
+    // NfcA properties
+    val nfcaAtqa: String? = null,
+    val nfcaSak: Int? = null,
+    val nfcaTimeout: Int? = null,
+    val nfcaMaxTransceiveLength: Int? = null,
+
+    // MifareClassic properties
+    val mifareClassicTimeout: Int? = null,
+    val mifareClassicMaxTransceiveLength: Int? = null,
+    val mifareClassicSize: Int? = null,
+    val mifareClassicType: Int? = null,
+    val mifareClassicSectorCount: Int? = null,
+    val mifareClassicBlockCount: Int? = null,
+    val mifareClassicData: String? = null,
+
+    // MifareUltralight properties
+    val mifareUltralightType: Int? = null,
+    val mifareUltralightTimeout: Int? = null,
+    val mifareUltralightMaxTransceiveLength: Int? = null,
+    val mifareUltralightData: String? = null,
 
 )

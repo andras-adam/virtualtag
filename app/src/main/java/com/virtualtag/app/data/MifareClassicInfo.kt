@@ -4,7 +4,7 @@ import android.nfc.tech.MifareClassic
 import android.util.Log
 import java.io.IOException
 
-class MifareClassicHelper(tag: MifareClassic) {
+class MifareClassicInfo(tag: MifareClassic) {
     val timeout: Int
     val maxTransceiveLength: Int
     val size: Int
