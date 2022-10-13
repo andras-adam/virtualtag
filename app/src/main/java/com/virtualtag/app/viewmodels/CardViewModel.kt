@@ -3,7 +3,6 @@ package com.virtualtag.app.viewmodels
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.virtualtag.app.db.Card
 import com.virtualtag.app.db.CardDB
 import kotlinx.coroutines.CoroutineScope
