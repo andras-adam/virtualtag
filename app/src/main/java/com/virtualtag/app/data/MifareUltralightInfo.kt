@@ -40,7 +40,7 @@ class MifareUltralightInfo(tag: MifareUltralight) {
                 else -> 0
             }
             // Read every fourth page, as 4 pages are read at a time by `readPages()`
-            for (currentPage in 0..readablePagesCount) {
+            for (currentPage in 0 until readablePagesCount) {
                 if (currentPage % 4 == 0) dataAccumulator += tag.readPages(currentPage).toHex()
             }
             return dataAccumulator
