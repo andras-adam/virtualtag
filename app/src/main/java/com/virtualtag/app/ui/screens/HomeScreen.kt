@@ -62,19 +62,24 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: (
                     .padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Logo(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
+                Logo(modifier = Modifier.padding(top = 16.dp))
                 if (cardList.value.isEmpty()) {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    Text("( つ ◕_◕ )つ", color = Color.LightGray, fontSize = 32.sp)
-                    Spacer(modifier = Modifier.height(24.dp))
-                    Text("This is VirtualTag blob.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text("He needs some NFC cards.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text("Press + to help him.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
+                    Column(
+                        modifier = Modifier.fillMaxSize().padding(bottom = 48.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text("( つ ◕_◕ )つ", color = Color.LightGray, fontSize = 32.sp)
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Text("This is VirtualTag blob.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Text("He needs some NFC cards.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Text("Press + to help him.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
+                    }
                 }
                 // List of all cards in the database
-                LazyColumn {
+                LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
                     items(cardList.value) { card ->
                         CardContainer(
                             onClick = { viewCard(card.id) },
