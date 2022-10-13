@@ -8,20 +8,20 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.MifareClassic
 import android.nfc.tech.MifareUltralight
-import android.nfc.tech.NdefFormatable
-import android.nfc.tech.NfcA
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
-// Byte array to HEX helper
-fun ByteArray.toHex(): String = joinToString(separator = "") { "%02x".format(it) }
+import com.virtualtag.app.utils.toHex
 
 class ScanningViewModel : ViewModel() {
-    // Currently scanned tag
+    // Currently scanned tag, mifare classic and ultralight information
     private val _scannedTag by lazy { MutableLiveData<Tag>() }
     val scannedTag = _scannedTag as LiveData<Tag>
+    private val _mifareClassicInfo by lazy { MutableLiveData<MifareClassicInfo>() }
+    val mifareClassicInfo = _mifareClassicInfo as LiveData<MifareClassicInfo>
+    private val _mifareUltralightInfo by lazy { MutableLiveData<MifareUltralightInfo>() }
+    val mifareUltralightInfo = _mifareUltralightInfo as LiveData<MifareUltralightInfo>
 
     // Is scanning allowed state variable
     private var isScanning = false
@@ -40,11 +40,8 @@ class ScanningViewModel : ViewModel() {
         val intentFilter = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
         val intentFiltersArray = arrayOf(intentFilter)
         val techListsArray = arrayOf(
-            arrayOf(
-                NfcA::class.java.name,
-                MifareUltralight::class.java.name,
-                NdefFormatable::class.java.name
-            )
+            arrayOf(MifareClassic::class.java.name),
+            arrayOf(MifareUltralight::class.java.name),
         )
         // Enable foreground dispatch
         adapter.enableForegroundDispatch(
@@ -74,6 +71,14 @@ class ScanningViewModel : ViewModel() {
         if (intent?.action == NfcAdapter.ACTION_TECH_DISCOVERED) {
             val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
             Log.i("NFC", "scanned ${tag?.id?.toHex()}")
+            if (tag?.techList?.contains(MifareClassic::class.java.name) == true) {
+                val mfc = MifareClassic.get(tag)
+                _mifareClassicInfo.value = MifareClassicInfo(mfc)
+            }
+            if (tag?.techList?.contains(MifareUltralight::class.java.name) == true) {
+                val mfu = MifareUltralight.get(tag)
+                _mifareUltralightInfo.value = MifareUltralightInfo(mfu)
+            }
             _scannedTag.value = tag
         }
     }

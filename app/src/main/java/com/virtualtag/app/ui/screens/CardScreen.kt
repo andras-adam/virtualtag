@@ -1,16 +1,17 @@
 package com.virtualtag.app.ui.screens
 
-import android.widget.Toast
+import android.nfc.tech.MifareClassic
+import android.nfc.tech.MifareUltralight
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import android.widget.Toast
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
+import androidx.compose.runtime.Composable
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -21,8 +22,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.virtualtag.app.ui.components.MifareClassicView
+import com.virtualtag.app.ui.components.MifareUltralightView
 import com.virtualtag.app.R
-import com.virtualtag.app.db.Card
 import com.virtualtag.app.ui.components.Dialog
 import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.components.SecondaryButton
@@ -36,22 +38,24 @@ fun CardScreen(
     goBack: () -> Unit,
     goHome: () -> Unit
 ) {
+    val card = model.getCardById(id).observeAsState(null)
     val context = LocalContext.current
-    val card =
-        model.getCardById(id)
-            .observeAsState(Card(id = "0", name = "Unknown card", color = "#fff8f8f8"))
     var deleteDialogOpen by remember { mutableStateOf(false) }
-
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(card.value.name) },
+                title = { Text(card.value?.name ?: "") },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            null
-                        )
+                        Icon(Icons.Filled.ArrowBack, null)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { editCard(card.value?.id ?: "") }) {
+                        Icon(Icons.Filled.Edit, null)
+                    }
+                    IconButton(onClick = { deleteDialogOpen = true }) {
+                        Icon(Icons.Filled.Delete, null)
                     }
                 }
             )
@@ -63,34 +67,14 @@ fun CardScreen(
                 .fillMaxSize()
                 .padding(8.dp), color = MaterialTheme.colors.background
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                Text("Card details - placeholder")
-                Row {
-                    Column(
-                        Modifier
-                            .weight(1f)
-                            .padding(end = 4.dp)
-                    ) {
-                        PrimaryButton(
-                            text = stringResource(R.string.edit),
-                            onClick = { editCard(card.value.id) },
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
-                        )
-                    }
-                    Column(
-                        Modifier
-                            .weight(1f)
-                            .padding(start = 4.dp)
-                    ) {
-                        SecondaryButton(
-                            text = stringResource(R.string.delete),
-                            onClick = { deleteDialogOpen = true },
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
-                        )
+            Column(modifier = Modifier.fillMaxWidth()) {
+                if (card.value != null) {
+                    if (card.value?.techList?.contains(MifareClassic::class.java.name) == true) {
+                        MifareClassicView(card = card.value!!)
+                    } else if (card.value?.techList?.contains(MifareUltralight::class.java.name) == true) {
+                        MifareUltralightView(card = card.value!!)
+                    } else {
+                        Text(stringResource(R.string.not_supported))
                     }
                 }
             }
@@ -127,14 +111,14 @@ fun CardScreen(
                 )
             }, confirmButton = {
                 SecondaryButton(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     onClick = { deleteDialogOpen = false }, modifier = Modifier.padding(top = 4.dp)
                 )
             }, dismissButton = {
                 PrimaryButton(
-                    text = "OK",
+                    text = stringResource(R.string.delete),
                     onClick = {
-                        model.deleteCard(card.value)
+                        model.deleteCard(card.value!!)
                         deleteDialogOpen = false
                         Toast.makeText(
                             context,
@@ -148,4 +132,5 @@ fun CardScreen(
             }
         )
     }
+
 }

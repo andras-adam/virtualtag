@@ -24,33 +24,25 @@ import com.virtualtag.app.utils.stringToColor
 @Composable
 fun EditScreen(model: CardViewModel, id: String, goBack: () -> Unit, goHome: () -> Unit) {
     val context = LocalContext.current
-    val card =
-        model.getCardById(id)
-            .observeAsState(
-                Card(
-                    id = "0",
-                    name = "",
-                    color = "#fff8f8f8"
-                )
-            )
+    val card = model.getCardById(id).observeAsState(null)
 
     var name by remember { mutableStateOf("") }
     var color by remember { mutableStateOf(colorToString(cardBackGroundColors[0])) }
 
     LaunchedEffect(key1 = card.value) {
-        if (card.value.id == "0") return@LaunchedEffect
-        name = card.value.name
-        color = card.value.color
+        if (card.value == null) return@LaunchedEffect
+        name = card.value!!.name
+        color = card.value!!.color
     }
 
     fun editCardInDb() {
-        model.updateCard(Card(id = card.value.id, name = name, color = color))
-        Toast.makeText(
-            context,
-            context.getString(R.string.card_updated_success),
-            Toast.LENGTH_SHORT
-        )
-            .show()
+        if (card.value == null) return
+        if (name == "") {
+            Toast.makeText(context, context.getString(R.string.empty_name_error), Toast.LENGTH_SHORT).show()
+            return
+        }
+        model.updateCard(card.value!!.id, name, color)
+        Toast.makeText(context, context.getString(R.string.card_updated_success), Toast.LENGTH_SHORT).show()
         goHome()
     }
 
@@ -60,10 +52,7 @@ fun EditScreen(model: CardViewModel, id: String, goBack: () -> Unit, goHome: () 
                 title = { Text(stringResource(R.string.edit)) },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            null
-                        )
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )
@@ -116,16 +105,11 @@ fun EditScreen(model: CardViewModel, id: String, goBack: () -> Unit, goHome: () 
                             .weight(1f)
                             .padding(start = 4.dp)
                     ) {
-                        PrimaryButton(text = "Ok", onClick = {
-                            if (name == "") {
-                                return@PrimaryButton Toast.makeText(
-                                    context,
-                                    context.getString(R.string.empty_name_error),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            editCardInDb()
-                        }, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+                        PrimaryButton(
+                            text = stringResource(R.string.ok),
+                            onClick = { editCardInDb() },
+                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                        )
                     }
                 }
             }
