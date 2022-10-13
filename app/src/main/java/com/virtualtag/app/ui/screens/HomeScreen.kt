@@ -203,3 +203,4 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: (
             }
         }
 }
+

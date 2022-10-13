@@ -18,4 +18,19 @@
     <string name="card_deleted_success">Kártya sikeresen törölve!</string>
     <string name="delete">Törlés</string>
     <string name="card_updated_success">Kártya sikeresen frissítve!</string>
+    <string name="clipboard">Vágólapra másolva!</string>
+    <string name="unknown">Ismeretlen</string>
+    <string name="serial_number">Sorozatszám</string>
+    <string name="technologies">NFC technológiák</string>
+    <string name="type">Típus</string>
+    <string name="transcieve_timeout">Maximum küldési idő</string>
+    <string name="transcieve_max_length">Maximum küldési méret</string>
+    <string name="mem_size">Memória méret</string>
+    <string name="mem_sector_count">Memória szektor szám</string>
+    <string name="mem_block_count">Memória blokk szám</string>
+    <string name="mem_block">Memória blokk</string>
+    <string name="mem_page">Memória oldal</string>
+    <string name="bytes">bájt</string>
+    <string name="ms">ms</string>
+    <string name="not_supported">Ez a kártya nem támogatott.</string>
 </resources>

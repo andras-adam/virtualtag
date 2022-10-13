@@ -14,8 +14,8 @@ interface CardDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCard(card: Card)
 
-    @Update
-    fun updateCard(card: Card)
+    @Query("UPDATE card SET name = :name, color = :color WHERE card.id = :id")
+    fun updateCard(id: String, name: String, color: String)
 
     @Delete
     fun deleteCard(card: Card)

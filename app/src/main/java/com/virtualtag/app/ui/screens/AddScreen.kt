@@ -16,7 +16,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.R
 import com.virtualtag.app.data.ScanningViewModel
-import com.virtualtag.app.data.toHex
 import com.virtualtag.app.db.Card
 import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.ColorButton
@@ -24,6 +23,7 @@ import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.components.SecondaryButton
 import com.virtualtag.app.ui.theme.cardBackGroundColors
 import com.virtualtag.app.utils.colorToString
+import com.virtualtag.app.utils.toHex
 import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable
@@ -35,21 +35,38 @@ fun AddScreen(
 ) {
     val context = LocalContext.current
     val scannedTag = scanningViewModel.scannedTag.observeAsState()
-    val tagId = scannedTag.value?.id?.toHex() ?: "0"
+    val mifareClassicInfo = scanningViewModel.mifareClassicInfo.observeAsState()
+    val mifareUltralightInfo = scanningViewModel.mifareUltralightInfo.observeAsState()
 
     var name by remember { mutableStateOf(TextFieldValue("")) }
     var color by remember { mutableStateOf("#fff8f8f8") }
 
     fun addCardToDb() {
-        model.addCard(
-            Card(
-                id = tagId,
-                name = name.text,
-                color = color
-            )
+        val card = Card(
+            id = scannedTag.value?.id?.toHex() ?: "0",
+            name = name.text,
+            color = color,
+            techList = scannedTag.value?.techList?.joinToString(",") ?: "",
+            // MifareClassic properties
+            mifareClassicAtqa = mifareClassicInfo.value?.atqa,
+            mifareClassicSak = mifareClassicInfo.value?.sak,
+            mifareClassicTimeout = mifareClassicInfo.value?.timeout,
+            mifareClassicMaxTransceiveLength = mifareClassicInfo.value?.maxTransceiveLength,
+            mifareClassicSize = mifareClassicInfo.value?.size,
+            mifareClassicType = mifareClassicInfo.value?.type,
+            mifareClassicSectorCount = mifareClassicInfo.value?.sectorCount,
+            mifareClassicBlockCount = mifareClassicInfo.value?.blockCount,
+            mifareClassicData = mifareClassicInfo.value?.data,
+            // MifareUltralight properties
+            mifareUltralightType = mifareUltralightInfo.value?.type,
+            mifareUltralightTimeout = mifareUltralightInfo.value?.timeout,
+            mifareUltralightMaxTransceiveLength = mifareUltralightInfo.value?.maxTransceiveLength,
+            mifareUltralightAtqa = mifareUltralightInfo.value?.atqa,
+            mifareUltralightSak = mifareUltralightInfo.value?.sak,
+            mifareUltralightData = mifareUltralightInfo.value?.data,
         )
-        Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT)
-            .show()
+        model.addCard(card)
+        Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT).show()
         goHome()
     }
 
@@ -59,10 +76,7 @@ fun AddScreen(
                 title = { Text(context.getString(R.string.add_new_card)) },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            null
-                        )
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )

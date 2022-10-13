@@ -23,7 +23,8 @@ fun CardContainer(
         elevation = 2.dp,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 4.dp, bottom = 4.dp),
+            .padding(top = 4.dp, bottom = 4.dp)
+            .padding(horizontal = 12.dp),
         onClick = onClick,
         backgroundColor = color,
         enabled = enabled
