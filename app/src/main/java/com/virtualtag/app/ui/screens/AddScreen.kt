@@ -76,10 +76,7 @@ fun AddScreen(
                 title = { Text(context.getString(R.string.add_new_card)) },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            null
-                        )
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )

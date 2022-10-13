@@ -15,11 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.data.ScanningViewModel
 import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.R
+import com.virtualtag.app.ui.components.SecondaryButton
 
 @Composable
 fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard: () -> Unit) {
@@ -46,10 +48,7 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
                 title = { Text(stringResource(R.string.scan_new_card)) },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            null
-                        )
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )
@@ -88,15 +87,16 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
                         Text(
                             stringResource(R.string.scan_description),
                             color = MaterialTheme.colors.secondary,
+                            textAlign = TextAlign.Center
                         )
                         Spacer(Modifier.weight(2f))
+                        SecondaryButton(
+                            text = stringResource(R.string.cancel),
+                            onClick = goBack,
+                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                        )
                     }
                 }
-                PrimaryButton(
-                    text = stringResource(R.string.cancel),
-                    onClick = goBack,
-                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
-                )
             }
         }
     }
