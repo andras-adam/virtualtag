@@ -36,8 +36,8 @@ class MainActivity : ComponentActivity() {
             }
             val scanCard: () -> Unit = { navController.navigate("scan") }
             val addCard: () -> Unit = { navController.navigate("add") }
-            val viewCard: (id: String) -> Unit = { id -> navController.navigate("card/$id") }
-            val editCard: (id: String) -> Unit = { id -> navController.navigate("edit/$id") }
+            val viewCard: (id: Int) -> Unit = { id -> navController.navigate("card/$id") }
+            val editCard: (id: Int) -> Unit = { id -> navController.navigate("edit/$id") }
             // Render content
             VirtualTagTheme {
                 NavHost(navController = navController, startDestination = "home") {
@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         CardScreen(
                             model = cardViewModel,
-                            id = it.arguments?.getString("id") ?: "0",
+                            id = it.arguments?.getString("id")?.toInt() ?: 0,
                             editCard = editCard,
                             goBack = goBack,
                             goHome = goHome
@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         EditScreen(
                             model = cardViewModel,
-                            id = it.arguments?.getString("id") ?: "0",
+                            id = it.arguments?.getString("id")?.toInt() ?: 0,
                             goBack = goBack,
                             goHome = goHome
                         )

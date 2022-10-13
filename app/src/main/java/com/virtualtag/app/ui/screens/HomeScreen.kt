@@ -27,7 +27,7 @@ import com.virtualtag.app.R
 import com.virtualtag.app.ui.components.*
 
 @Composable
-fun HomeScreen(model: CardViewModel, viewCard: (id: String) -> Unit, scanCard: () -> Unit) {
+fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -> Unit) {
     val context = LocalContext.current
     val cardList = model.getAllCards().observeAsState(listOf())
     var errorDialogOpen by remember { mutableStateOf(false) }

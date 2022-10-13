@@ -21,7 +21,7 @@ import com.virtualtag.app.utils.colorToString
 import com.virtualtag.app.utils.stringToColor
 
 @Composable
-fun EditScreen(model: CardViewModel, id: String, goBack: () -> Unit, goHome: () -> Unit) {
+fun EditScreen(model: CardViewModel, id: Int, goBack: () -> Unit, goHome: () -> Unit) {
     val context = LocalContext.current
     val card = model.getCardById(id).observeAsState(null)
 
