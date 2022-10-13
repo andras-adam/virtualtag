@@ -3,6 +3,7 @@ package com.virtualtag.app.data
 import android.nfc.tech.MifareUltralight
 import android.nfc.tech.NfcA
 import android.util.Log
+import com.virtualtag.app.utils.toHex
 import java.io.IOException
 
 class MifareUltralightInfo(tag: MifareUltralight) {

@@ -16,7 +16,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.virtualtag.app.R
 import com.virtualtag.app.data.ScanningViewModel
-import com.virtualtag.app.data.toHex
 import com.virtualtag.app.db.Card
 import com.virtualtag.app.ui.components.CardContainer
 import com.virtualtag.app.ui.components.ColorButton
@@ -24,6 +23,7 @@ import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.components.SecondaryButton
 import com.virtualtag.app.ui.theme.cardBackGroundColors
 import com.virtualtag.app.utils.colorToString
+import com.virtualtag.app.utils.toHex
 import com.virtualtag.app.viewmodels.CardViewModel
 
 @Composable

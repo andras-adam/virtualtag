@@ -12,9 +12,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
-// Byte array to HEX helper
-fun ByteArray.toHex(): String = joinToString(separator = "") { "%02x".format(it) }
+import com.virtualtag.app.utils.toHex
 
 class ScanningViewModel : ViewModel() {
     // Currently scanned tag, mifare classic and ultralight information

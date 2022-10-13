@@ -13,4 +13,5 @@
     <string name="scan_description">Tartsd az eszközt az NFC olvasóhoz a beolvasáshoz</string>
     <string name="nfc_sensor_error">NFC érzékelő hiba</string>
     <string name="nfc_sensor_error_description">Úgy tűnik, hogy a készüléked nem rendelkezik NFC érzékelővel. Sajnos ezzel az eszközzel nem lehet NFC kártyákat beolvasni.</string>
+    <string name="clipboard">Vágólapra másolva!</string>
 </resources>
