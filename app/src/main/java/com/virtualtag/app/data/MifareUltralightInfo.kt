@@ -1,6 +1,7 @@
 package com.virtualtag.app.data
 
 import android.nfc.tech.MifareUltralight
+import android.nfc.tech.NfcA
 import android.util.Log
 import java.io.IOException
 
@@ -8,12 +9,19 @@ class MifareUltralightInfo(tag: MifareUltralight) {
     val type: Int
     val timeout: Int
     val maxTransceiveLength: Int
+    val atqa: String
+    val sak: Int
     val data: String
 
     init {
         type = tag.type
         timeout = tag.timeout
         maxTransceiveLength = tag.maxTransceiveLength
+        // MifareUltralight tags are also NfcA tags
+        val nfca = NfcA.get(tag.tag)
+        atqa = nfca.atqa.toHex()
+        sak = nfca.sak.toInt()
+        // Read memory data
         data = readData(tag)
     }
 

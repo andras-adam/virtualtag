@@ -16,13 +16,9 @@ data class Card(
     val color: String,
     val techList: String,
 
-    // NfcA properties
-    val nfcaAtqa: String? = null,
-    val nfcaSak: Int? = null,
-    val nfcaTimeout: Int? = null,
-    val nfcaMaxTransceiveLength: Int? = null,
-
     // MifareClassic properties
+    val mifareClassicAtqa: String? = null,
+    val mifareClassicSak: Int? = null,
     val mifareClassicTimeout: Int? = null,
     val mifareClassicMaxTransceiveLength: Int? = null,
     val mifareClassicSize: Int? = null,
@@ -32,9 +28,10 @@ data class Card(
     val mifareClassicData: String? = null,
 
     // MifareUltralight properties
-    val mifareUltralightType: Int? = null,
+    val mifareUltralightAtqa: String? = null,
+    val mifareUltralightSak: Int? = null,
     val mifareUltralightTimeout: Int? = null,
     val mifareUltralightMaxTransceiveLength: Int? = null,
+    val mifareUltralightType: Int? = null,
     val mifareUltralightData: String? = null,
-
 )

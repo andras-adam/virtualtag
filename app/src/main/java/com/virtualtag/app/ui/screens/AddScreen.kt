@@ -1,9 +1,5 @@
 package com.virtualtag.app.ui.screens
 
-import android.nfc.tech.MifareClassic
-import android.nfc.tech.MifareUltralight
-import android.nfc.tech.NfcA
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -46,17 +42,14 @@ fun AddScreen(
     var color by remember { mutableStateOf("#fff8f8f8") }
 
     fun addCardToDb() {
-
-        // Construct card
         val card = Card(
             id = scannedTag.value?.id?.toHex() ?: "0",
             name = name.text,
             color = color,
             techList = scannedTag.value?.techList?.joinToString(",") ?: "",
-//            nfcaAtqa = nfca?.atqa?.toHex(),
-//            nfcaSak = nfca?.sak?.toInt(),
-//            nfcaTimeout = nfca?.timeout,
-//            nfcaMaxTransceiveLength = nfca?.maxTransceiveLength,
+            // MifareClassic properties
+            mifareClassicAtqa = mifareClassicInfo.value?.atqa,
+            mifareClassicSak = mifareClassicInfo.value?.sak,
             mifareClassicTimeout = mifareClassicInfo.value?.timeout,
             mifareClassicMaxTransceiveLength = mifareClassicInfo.value?.maxTransceiveLength,
             mifareClassicSize = mifareClassicInfo.value?.size,
@@ -64,18 +57,16 @@ fun AddScreen(
             mifareClassicSectorCount = mifareClassicInfo.value?.sectorCount,
             mifareClassicBlockCount = mifareClassicInfo.value?.blockCount,
             mifareClassicData = mifareClassicInfo.value?.data,
+            // MifareUltralight properties
             mifareUltralightType = mifareUltralightInfo.value?.type,
             mifareUltralightTimeout = mifareUltralightInfo.value?.timeout,
             mifareUltralightMaxTransceiveLength = mifareUltralightInfo.value?.maxTransceiveLength,
+            mifareUltralightAtqa = mifareUltralightInfo.value?.atqa,
+            mifareUltralightSak = mifareUltralightInfo.value?.sak,
             mifareUltralightData = mifareUltralightInfo.value?.data,
         )
-
-        Log.d("ADDING CARD", card.toString())
-
-        //
         model.addCard(card)
-        Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT).show()
         goHome()
     }
 

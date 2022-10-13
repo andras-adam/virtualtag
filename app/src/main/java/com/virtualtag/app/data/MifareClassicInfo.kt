@@ -1,12 +1,15 @@
 package com.virtualtag.app.data
 
 import android.nfc.tech.MifareClassic
+import android.nfc.tech.NfcA
 import android.util.Log
 import java.io.IOException
 
 class MifareClassicInfo(tag: MifareClassic) {
     val timeout: Int
     val maxTransceiveLength: Int
+    val atqa: String
+    val sak: Int
     val size: Int
     val type: Int
     val sectorCount: Int
@@ -20,6 +23,11 @@ class MifareClassicInfo(tag: MifareClassic) {
         type = tag.type
         sectorCount = tag.sectorCount
         blockCount = tag.blockCount
+        // MifareClassic tags are also NfcA tags
+        val nfca = NfcA.get(tag.tag)
+        atqa = nfca.atqa.toHex()
+        sak = nfca.sak.toInt()
+        // Read memory data
         data = readData(tag)
     }
 
