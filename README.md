@@ -10,9 +10,9 @@ VirtualTag is a native Android application, which lets you scan NFC tags using t
 
 ## Screenshots
 
-![XRecorder_15102022_130804](https://user-images.githubusercontent.com/91802386/195981295-59974d78-7376-44da-8cd3-8657a612173b.jpg)
-![XRecorder_15102022_130816](https://user-images.githubusercontent.com/91802386/195981302-f3bc243b-a4fe-429c-b06f-5a5e38d6a9c5.jpg)
-![XRecorder_15102022_131423](https://user-images.githubusercontent.com/91802386/195981308-23f2a0c4-5672-41e2-9e0e-f211c1074f7e.png)
+![XRecorder_15102022_130804](https://user-images.githubusercontent.com/91802386/195981888-0016187d-210a-4917-ba07-5dd213150e1c.jpg)
+![XRecorder_15102022_130816](https://user-images.githubusercontent.com/91802386/195981890-d573fc3d-e09b-4842-95d6-9277331b15b1.jpg)
+![XRecorder_15102022_131423](https://user-images.githubusercontent.com/91802386/195981891-30d148d6-cd42-415e-addd-131e0e6ed1cb.png)
 
 ## Used libraries
 
