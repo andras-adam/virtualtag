@@ -28,20 +28,30 @@ fun EditScreen(model: CardViewModel, id: Int, goBack: () -> Unit, goHome: () -> 
     var name by remember { mutableStateOf("") }
     var color by remember { mutableStateOf(colorToString(cardBackGroundColors[0])) }
 
+    // Update local states if the a valid card value is returned from the ViewModel
     LaunchedEffect(key1 = card.value) {
         if (card.value == null) return@LaunchedEffect
         name = card.value!!.name
         color = card.value!!.color
     }
 
+    // Update card if card exists and a valid new name is given
     fun editCardInDb() {
         if (card.value == null) return
         if (name == "") {
-            Toast.makeText(context, context.getString(R.string.empty_name_error), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.empty_name_error),
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         model.updateCard(card.value!!.id, name, color)
-        Toast.makeText(context, context.getString(R.string.card_updated_success), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            context.getString(R.string.card_updated_success),
+            Toast.LENGTH_SHORT
+        ).show()
         goHome()
     }
 
@@ -96,7 +106,7 @@ fun EditScreen(model: CardViewModel, id: Int, goBack: () -> Unit, goHome: () -> 
                         SecondaryButton(
                             text = stringResource(R.string.cancel),
                             onClick = goBack,
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                            modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }
                     Column(
@@ -107,7 +117,7 @@ fun EditScreen(model: CardViewModel, id: Int, goBack: () -> Unit, goHome: () -> 
                         PrimaryButton(
                             text = stringResource(R.string.ok),
                             onClick = { editCardInDb() },
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                            modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }
                 }
