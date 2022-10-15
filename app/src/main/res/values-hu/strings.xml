@@ -33,4 +33,7 @@
     <string name="bytes">bájt</string>
     <string name="ms">ms</string>
     <string name="not_supported">Ez a kártya nem támogatott.</string>
+    <string name="list_placeholder_line2">Ó ne, itt itt a VirtualTag szörny,</string>
+    <string name="list_placeholder_line3">szüksége van pár NFC kártyára.</string>
+    <string name="list_placeholder_line4">Nyomd meg a + gombot, hogy segíts neki!</string>
 </resources>
