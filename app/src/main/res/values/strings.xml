@@ -36,4 +36,8 @@
     <string name="bytes">bytes</string>
     <string name="not_supported">The card is not supported.</string>
     <string name="ok" translatable="false">OK</string>
+    <string name="list_placeholder_line1" translatable="false">( つ ◕_◕ )つ</string>
+    <string name="list_placeholder_line2">This is VirtualTag blob.</string>
+    <string name="list_placeholder_line3">He needs some NFC cards.</string>
+    <string name="list_placeholder_line4">Press + to help him.</string>
 </resources>

@@ -20,11 +20,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.virtualtag.app.R
+import com.virtualtag.app.ui.components.CardContainer
+import com.virtualtag.app.ui.components.Dialog
+import com.virtualtag.app.ui.components.Logo
+import com.virtualtag.app.ui.components.PrimaryButton
 import com.virtualtag.app.ui.theme.BlackBG
 import com.virtualtag.app.utils.stringToColor
 import com.virtualtag.app.viewmodels.CardViewModel
-import com.virtualtag.app.R
-import com.virtualtag.app.ui.components.*
 
 @Composable
 fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -> Unit) {
@@ -43,7 +46,10 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { onScanClick() }, backgroundColor = MaterialTheme.colors.primary) {
+            FloatingActionButton(
+                onClick = { onScanClick() },
+                backgroundColor = MaterialTheme.colors.primary
+            ) {
                 Icon(Icons.Filled.Add, contentDescription = null)
             }
         }
@@ -63,17 +69,38 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -
                 Logo(modifier = Modifier.padding(top = 16.dp))
                 if (cardList.value.isEmpty()) {
                     Column(
-                        modifier = Modifier.fillMaxSize().padding(bottom = 48.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = 48.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text("( つ ◕_◕ )つ", color = Color.LightGray, fontSize = 32.sp)
+                        Text(
+                            stringResource(R.string.list_placeholder_line1),
+                            color = Color.LightGray,
+                            fontSize = 32.sp
+                        )
                         Spacer(modifier = Modifier.height(24.dp))
-                        Text("This is VirtualTag blob.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
+                        Text(
+                            stringResource(R.string.list_placeholder_line2),
+                            color = Color.LightGray,
+                            fontStyle = FontStyle.Italic,
+                            fontSize = 24.sp
+                        )
                         Spacer(modifier = Modifier.height(12.dp))
-                        Text("He needs some NFC cards.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
+                        Text(
+                            stringResource(R.string.list_placeholder_line3),
+                            color = Color.LightGray,
+                            fontStyle = FontStyle.Italic,
+                            fontSize = 24.sp
+                        )
                         Spacer(modifier = Modifier.height(12.dp))
-                        Text("Press + to help him.", color = Color.LightGray, fontStyle = FontStyle.Italic, fontSize = 24.sp)
+                        Text(
+                            stringResource(R.string.list_placeholder_line4),
+                            color = Color.LightGray,
+                            fontStyle = FontStyle.Italic,
+                            fontSize = 24.sp
+                        )
                     }
                 }
                 // List of all cards in the database
@@ -87,7 +114,7 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -
                             Text(
                                 card.name,
                                 color = BlackBG,
-                                modifier = Modifier.padding(top = 64.dp, bottom = 64.dp)
+                                modifier = Modifier.padding(vertical = 64.dp)
                             )
                         }
                     }
@@ -122,7 +149,6 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -
                 Text(
                     stringResource(
                         R.string.nfc_sensor_error_description
-
                     ),
                     color = MaterialTheme.colors.secondary,
                     textAlign = TextAlign.Center
@@ -131,7 +157,7 @@ fun HomeScreen(model: CardViewModel, viewCard: (id: Int) -> Unit, scanCard: () -
                 PrimaryButton(
                     text = "OK",
                     onClick = { errorDialogOpen = false },
-                    modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
+                    modifier = Modifier.padding(vertical = 4.dp)
                 )
             }
         )

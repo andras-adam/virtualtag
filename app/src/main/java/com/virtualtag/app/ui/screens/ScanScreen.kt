@@ -92,7 +92,7 @@ fun ScanScreen(scanningViewModel: ScanningViewModel, goBack: () -> Unit, addCard
                         SecondaryButton(
                             text = stringResource(R.string.cancel),
                             onClick = goBack,
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                            modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }
                 }

@@ -41,31 +41,26 @@ fun CardScreen(
     val card = model.getCardById(id).observeAsState(null)
     val context = LocalContext.current
     var deleteDialogOpen by remember { mutableStateOf(false) }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(card.value?.name ?: "") },
-                navigationIcon = {
-                    IconButton(onClick = goBack) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { editCard(card.value?.id ?: 0) }) {
-                        Icon(Icons.Filled.Edit, null)
-                    }
-                    IconButton(onClick = { deleteDialogOpen = true }) {
-                        Icon(Icons.Filled.Delete, null)
-                    }
-                }
-            )
-        }
-    ) {
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(card.value?.name ?: "") }, navigationIcon = {
+            IconButton(onClick = goBack) {
+                Icon(Icons.Filled.ArrowBack, null)
+            }
+        }, actions = {
+            IconButton(onClick = { editCard(card.value?.id ?: 0) }) {
+                Icon(Icons.Filled.Edit, null)
+            }
+            IconButton(onClick = { deleteDialogOpen = true }) {
+                Icon(Icons.Filled.Delete, null)
+            }
+        })
+    }) {
         Surface(
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize()
-                .padding(8.dp), color = MaterialTheme.colors.background
+                .padding(8.dp),
+            color = MaterialTheme.colors.background
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 if (card.value != null) {
@@ -82,55 +77,52 @@ fun CardScreen(
     }
 
     if (deleteDialogOpen) {
-        Dialog(
-            closeDialog = { }, title = {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        Icons.Outlined.Cancel,
-                        null, modifier = Modifier
-                            .padding(top = 24.dp)
-                            .size(72.dp),
-                        tint = Color.Red
-                    )
-                    Text(
-                        stringResource(R.string.delete_confirm),
-                        style = MaterialTheme.typography.h5,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colors.secondary,
-                        modifier = Modifier.padding(top = 24.dp)
-                    )
-                }
-            }, description = {
+        Dialog(closeDialog = { }, title = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    Icons.Outlined.Cancel,
+                    null,
+                    modifier = Modifier
+                        .padding(top = 24.dp)
+                        .size(72.dp),
+                    tint = Color.Red
+                )
                 Text(
-                    stringResource(R.string.delete_confirm_description),
+                    stringResource(R.string.delete_confirm),
+                    style = MaterialTheme.typography.h5,
+                    fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colors.secondary,
-                    textAlign = TextAlign.Center
-                )
-            }, confirmButton = {
-                SecondaryButton(
-                    text = stringResource(R.string.cancel),
-                    onClick = { deleteDialogOpen = false }, modifier = Modifier.padding(top = 4.dp)
-                )
-            }, dismissButton = {
-                PrimaryButton(
-                    text = stringResource(R.string.delete),
-                    onClick = {
-                        model.deleteCard(card.value!!)
-                        deleteDialogOpen = false
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.card_deleted_success),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        goHome()
-                    }, modifier = Modifier
+                    modifier = Modifier.padding(top = 24.dp)
                 )
             }
-        )
+        }, description = {
+            Text(
+                stringResource(R.string.delete_confirm_description),
+                color = MaterialTheme.colors.secondary,
+                textAlign = TextAlign.Center
+            )
+        }, confirmButton = {
+            SecondaryButton(
+                text = stringResource(R.string.cancel),
+                onClick = { deleteDialogOpen = false },
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }, dismissButton = {
+            PrimaryButton(
+                text = stringResource(R.string.delete), onClick = {
+                    model.deleteCard(card.value!!)
+                    deleteDialogOpen = false
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.card_deleted_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    goHome()
+                }, modifier = Modifier
+            )
+        })
     }
-
 }

@@ -73,7 +73,8 @@ class MainActivity : ComponentActivity() {
                             goHome = goHome
                         )
                     }
-                    composable("edit/{id}",
+                    composable(
+                        "edit/{id}",
                         arguments = listOf(navArgument("id") {
                             type = NavType.StringType
                         })

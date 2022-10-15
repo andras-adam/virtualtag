@@ -43,35 +43,42 @@ fun AddScreen(
 
     fun addCardToDb() {
         if (name.text == "") {
-            Toast.makeText(context, context.getString(R.string.empty_name_error), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.empty_name_error),
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
-        model.addCard(Card(
-            id = 0,
-            name = name.text,
-            color = color,
-            // Tag properties
-            serialNumber = scannedTag.value?.id?.toHex() ?: "0",
-            techList = scannedTag.value?.techList?.joinToString(",") ?: "",
-            // MifareClassic properties
-            mifareClassicAtqa = mifareClassicInfo.value?.atqa,
-            mifareClassicSak = mifareClassicInfo.value?.sak,
-            mifareClassicTimeout = mifareClassicInfo.value?.timeout,
-            mifareClassicMaxTransceiveLength = mifareClassicInfo.value?.maxTransceiveLength,
-            mifareClassicSize = mifareClassicInfo.value?.size,
-            mifareClassicType = mifareClassicInfo.value?.type,
-            mifareClassicSectorCount = mifareClassicInfo.value?.sectorCount,
-            mifareClassicBlockCount = mifareClassicInfo.value?.blockCount,
-            mifareClassicData = mifareClassicInfo.value?.data,
-            // MifareUltralight properties
-            mifareUltralightType = mifareUltralightInfo.value?.type,
-            mifareUltralightTimeout = mifareUltralightInfo.value?.timeout,
-            mifareUltralightMaxTransceiveLength = mifareUltralightInfo.value?.maxTransceiveLength,
-            mifareUltralightAtqa = mifareUltralightInfo.value?.atqa,
-            mifareUltralightSak = mifareUltralightInfo.value?.sak,
-            mifareUltralightData = mifareUltralightInfo.value?.data,
-        ))
-        Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT).show()
+        model.addCard(
+            Card(
+                id = 0,
+                name = name.text,
+                color = color,
+                // Tag properties
+                serialNumber = scannedTag.value?.id?.toHex() ?: "0",
+                techList = scannedTag.value?.techList?.joinToString(",") ?: "",
+                // MifareClassic properties
+                mifareClassicAtqa = mifareClassicInfo.value?.atqa,
+                mifareClassicSak = mifareClassicInfo.value?.sak,
+                mifareClassicTimeout = mifareClassicInfo.value?.timeout,
+                mifareClassicMaxTransceiveLength = mifareClassicInfo.value?.maxTransceiveLength,
+                mifareClassicSize = mifareClassicInfo.value?.size,
+                mifareClassicType = mifareClassicInfo.value?.type,
+                mifareClassicSectorCount = mifareClassicInfo.value?.sectorCount,
+                mifareClassicBlockCount = mifareClassicInfo.value?.blockCount,
+                mifareClassicData = mifareClassicInfo.value?.data,
+                // MifareUltralight properties
+                mifareUltralightType = mifareUltralightInfo.value?.type,
+                mifareUltralightTimeout = mifareUltralightInfo.value?.timeout,
+                mifareUltralightMaxTransceiveLength = mifareUltralightInfo.value?.maxTransceiveLength,
+                mifareUltralightAtqa = mifareUltralightInfo.value?.atqa,
+                mifareUltralightSak = mifareUltralightInfo.value?.sak,
+                mifareUltralightData = mifareUltralightInfo.value?.data,
+            )
+        )
+        Toast.makeText(context, context.getString(R.string.card_added_success), Toast.LENGTH_SHORT)
+            .show()
         goHome()
     }
 
@@ -155,7 +162,7 @@ fun AddScreen(
                         SecondaryButton(
                             text = stringResource(R.string.cancel),
                             onClick = goHome,
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                            modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }
                     Column(
@@ -166,7 +173,8 @@ fun AddScreen(
                         PrimaryButton(
                             text = stringResource(R.string.ok),
                             onClick = { addCardToDb() },
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+                            modifier = Modifier.padding(vertical = 8.dp)
+                        )
                     }
                 }
             }

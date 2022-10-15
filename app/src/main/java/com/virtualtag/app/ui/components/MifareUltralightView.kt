@@ -40,56 +40,65 @@ fun MifareUltralightView(card: Card) {
             DataRow(
                 title = stringResource(R.string.serial_number),
                 content = serialNumber,
-                icon = Icons.Filled.Key)
+                icon = Icons.Filled.Key
+            )
         }
         item {
             DataRow(
                 title = stringResource(R.string.technologies),
                 content = techList,
-                icon = Icons.Filled.Style)
+                icon = Icons.Filled.Style
+            )
         }
         item {
             DataRow(
                 title = stringResource(R.string.type),
                 content = type,
-                icon = Icons.Filled.Category)
+                icon = Icons.Filled.Category
+            )
         }
         item {
             DataRow(
                 title = stringResource(R.string.mem_size),
                 content = "$size bytes",
-                icon = Icons.Filled.Save)
+                icon = Icons.Filled.Save
+            )
         }
         item {
             DataRow(
                 title = stringResource(R.string.transcieve_timeout),
                 content = "$timeout ${stringResource(R.string.ms)}",
-                icon = Icons.Filled.Sensors)
+                icon = Icons.Filled.Sensors
+            )
         }
         item {
             DataRow(
                 title = stringResource(R.string.transcieve_max_length),
                 content = "$maxTranscieveLength ${stringResource(R.string.bytes)}",
-                icon = Icons.Filled.Sensors)
+                icon = Icons.Filled.Sensors
+            )
         }
         item {
             DataRow(
                 title = stringResource(R.string.atqa),
                 content = atqa,
-                icon = Icons.Filled.Code)
+                icon = Icons.Filled.Code
+            )
         }
         item {
             DataRow(
                 title = stringResource(R.string.sak),
                 content = "$sak",
-                icon = Icons.Filled.Code)
+                icon = Icons.Filled.Code
+            )
         }
         if (data.isNotEmpty()) {
             items(dataPageCount) { index ->
                 DataRow(
                     title = "${stringResource(R.string.mem_page)} ${index + 1}",
                     content = formatHex(data.substring(index * 8, index * 8 + 8)),
-                    icon = Icons.Filled.Memory)
+                    icon = Icons.Filled.Memory
+                )
             }
         }
     }
